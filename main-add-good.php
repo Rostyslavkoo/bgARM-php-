@@ -28,6 +28,9 @@
 </head>
 
 <body>
+    <?php
+    require"connect.php";
+    ?>
     <div class="container-fluid mt-5">
         <header>
             <div class="row text-center d-flex align-items-center">
@@ -148,7 +151,7 @@
                             <!-- back-2-add-avaible-goods --> <button type="button" class="btn btn-outline-red-400" onclick="            setTimeout(function(){ document.querySelector('#idSoldGood').focus(); }, 1000);            " data-bs-toggle="modal" data-bs-target="#modal_add_avaible" data-bs-dismiss="modal"> <i class="bi bi-box-arrow-left"></i> </button> </div>
                     </div>
                     <div class="container">
-                        <form action="">
+                        <form action="php-content/add-new-cases.php" method="post">
                             <div class="row add_cases">
                                 <div class="col">
                                     <div class="form"> <input id="idNewCase" name="idNewCase" type="text" class="form__input form-control" required placeholder=" "> <label for="idNewCase" class="form__label">Код товару</label> </div>
@@ -157,7 +160,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="form"> <input type="text" id="brandPhone" name="brandPhone" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="brandPhone" class="form__label">Марка телефона</label> </div>
-                                    <div class="form"> <input type="text" id="modelCase" name="modelCase" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="modelCase" class="form__label">Модель</label> </div>
+                                    <div class="form"> <input type="text" id="caseColor" name="caseColor" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="caseColor" class="form__label">Колір чохла</label> </div>
                                     <div class="form"> <input type="text" id="firstPriceCase" name="firstPriceCase" class="form__input form-control " required autocomplete="off" placeholder=" "> <label for="firstPriceCase" class="form__label">Ціна товару(шт)</label> </div>
                                 </div>
                                 <div class="row m-0">
@@ -170,7 +173,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <div class="number-input"> <button type="reset" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" min="1" max="999" name="quantity" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"><i class="bi bi-plus"></i> </button> </div> <button type="submit" class="btn btn-success">Додати до складу</button>
+                                    <div class="number-input"> <button type="reset" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" min="1" max="999" name="quantityNewCase" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"><i class="bi bi-plus"></i> </button> </div> <button type="submit" class="btn btn-success">Додати до складу</button>
                                 </div>
                             </div>
                         </form>
