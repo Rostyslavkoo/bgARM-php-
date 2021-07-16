@@ -7203,7 +7203,7 @@ input[type=number]::-webkit-outer-spin-button {
           box-sizing: border-box;
 }
 
-.c-number .number-input button {
+.c-number .number-input input {
   left: 24%;
 }
 
@@ -7215,7 +7215,7 @@ input[type=number]::-webkit-outer-spin-button {
   text-align: center !important;
 }
 
-.number-input button {
+.number-input input {
   position: absolute;
   outline: none;
   -webkit-appearance: none;
@@ -7238,7 +7238,7 @@ input[type=number]::-webkit-outer-spin-button {
   transition: 0.2s ease-out;
 }
 
-.number-input button:hover {
+.number-input input:hover {
   background-color: #f8d7da;
   -webkit-transition: 0.4s ease-out;
   -o-transition: 0.4s ease-out;

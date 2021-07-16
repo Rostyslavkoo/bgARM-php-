@@ -52,12 +52,13 @@
         </header>
         <div class="container mt-5 mb-2 search">
             <div class="row d-flex justify-content-end">
-                <div class="col-lg-2"> <input type="text" class="form-control" placeholder="Пошук" autofocus> </div>
+
+                <div class="col-lg-2"> <input type="text" class="form-control"id="search" placeholder="Search..." onkeyup="tableSearch()"  placeholder="Пошук" autofocus> </div>
             </div>
         </div>
         <div class="container text-center">
-            <div class="table-scrollable table-responsive">
-                <table class="table table-hover">
+            <div class="table-scrollable ">
+                <table class="table table-hover"id="info-table">
                     <thead>
                         <tr>
                             <th scope="col"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Код товару">№</span> </th>
@@ -69,16 +70,55 @@
                             <th scope="col"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Фото товарy">Фото</span> </th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row ">НФ-12431</th>
-                            <td class="main-cell">Iphone 7 Silicone Full Case</td>
-                            <td>Чорний</td>
-                            <td>10</td>
-                            <td>50</td>
-                            <td>150</td>
-                            <td class=" b-img-table"><i class="bi bi-image" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i></td>
-                            <div class="modal fade" id="staticBackdrop" aria-hidden="true">
+                     <?php
+
+require "connect.php";
+
+echo "<tbody>";
+
+$query = "SELECT
+    `id`,
+    `type_good`,
+    `good_content`,
+    `color`,
+    `cod`,
+    `quantity`,
+    `first_price`,
+    `last_price`
+FROM
+    `all_avaible_goods`
+ORDER BY
+    id
+DESC
+    ";
+$i=0;
+
+//$numrows = mysqli_num_rows( $query);
+if ($result = mysqli_query($mysql, $query)) {
+
+  while ($row = mysqli_fetch_assoc($result)) { 
+      echo  '<tr>'.
+      '<th scope="row">'.$row["cod"].'</th>'.
+      '<td>'.$row["good_content"].'</td>'.
+      '<td>'.$row["color"].'</td>'.
+      '<td>'.$row["quantity"].'</td>'.
+      '<td>'.$row["first_price"].'</td>'.
+      '<td>'.$row["last_price"].'</td>'.
+       '<td class=" b-img-table"><i class="bi bi-image" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i></td>'.
+
+
+      '</tr> ';
+  }
+
+  mysqli_free_result($result); // видалення
+}
+echo"</tbody>";
+
+
+mysqli_close($mysql);
+
+?>
+<div class="modal fade" id="staticBackdrop" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-img-table">
                                     <div class="modal-content">
                                         <div class="modal-body">
@@ -88,7 +128,6 @@
                                     </div>
                                 </div>
                             </div>
-                    </tbody>
                 </table>
             </div>
         </div>
@@ -100,9 +139,9 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Додати товар на склад</h5> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <form action="php-content/add-avaible-good.php" method="post">
                 <div class="modal-body">
                     <!-- add-new-goods-btn -->
-                    <form action="">
                         <div class="row justify-content-between align-items-center">
                             <div class="col col-lg-3 ">
                                 <div class="form"> <input type="text" id="idAvaibleGood" name="idAvaibleGood" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="idAvaibleGood" class="form__label">Код товару</label> </div>
@@ -129,7 +168,7 @@
                         </div>
                 </div>
                 <div class="modal-footer ">
-                    <div class="number-input"> <button type="reset" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" min="1" max="999" name="quantity" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div> <button type="submit" class="btn btn-success">Додати до складу</button>
+                    <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" min="1" max="999" name="quantityAvaibleGood" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button"onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div> <button type="submit" class="btn btn-success">Додати до складу</button>
                 </div>
                 </form>
             </div>
@@ -166,14 +205,13 @@
                                 <div class="row m-0">
                                     <div class="drag-and-drop-add-case ">
                                         <div class="drag-and-drop-content py-3" tabindex="0"> <label for="new_case_img"><i class="bi bi-file-earmark-plus d-flex justify-content-center  "></i></label> <input type="file" id="new_case_img" name="new_case_img" required accept="image/png, image/jpeg" style="display:none"> </div>
-                                        <div class="drag-and-drop-img">
-                                            <picture>
-                                                <source srcset="assets/img/test-case.webp" type="image/webp"><img src="assets/img/test-case.jpeg" alt=""></picture>
+                                        <div class="drag-and-drop-img ">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <div class="number-input"> <button type="reset" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" min="1" max="999" name="quantityNewCase" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"><i class="bi bi-plus"></i> </button> </div> <button type="submit" class="btn btn-success">Додати до складу</button>
+
+                                    <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" min="1" max="999" name="quantityNewCase" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button"onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"><i class="bi bi-plus"></i> </button> </div>         <div class="form w-75"> <input type="text" id="lastPriceCase" name="lastPriceCase" class="form__input form-control "style="margin-top: 2px;" required autocomplete="off" placeholder=" "> <label for="lastPriceCase" class="form__label">Ціна продажу(шт)</label> </div> <button type="submit" class="btn btn-success">Додати до складу</button>
                                 </div>
                             </div>
                         </form>
@@ -204,7 +242,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <div class="number-input"> <button type="reset" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" min="1" max="999" name="quantity" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div> <button type="submit" class="btn btn-success">Додати до складу</button>
+                                    <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" min="1" max="999" name="quantity" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div>     <div class="form w-75"> <input type="text" id="lastPriceCharge" name="lastPriceCharge" class="form__input form-control "style="margin-top: 2px;" required autocomplete="off" placeholder=" "> <label for="lastPriceCharge" class="form__label">Ціна продажу(шт)</label> </div> <button type="submit" class="btn btn-success">Додати до складу</button>
                                 </div>
                             </div>
                         </form>
@@ -232,7 +270,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <div class="number-input"> <button type="reset" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" min="1" max="999" name="quantity" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div> <button type="submit" class="btn btn-success">Додати до складу</button>
+                                <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" min="1" max="999" name="quantity" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div>      <div class="form w-75"> <input type="text" id="lastPriceGlass" name="lastPriceGlass" class="form__input form-control "style="margin-top: 2px;" required autocomplete="off" placeholder=" "> <label for="lastPriceGlass" class="form__label">Ціна продажу(шт)</label> </div><button type="submit" class="btn btn-success">Додати до складу</button>
                             </div>
                         </div>
                     </div>
@@ -245,6 +283,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
     <script src=""> </script>
     <script src="assets/js/main.min.js" charset="utf-8"></script>
+    <script src="assets/js/search-table.js" charset="utf-8"></script>
+    <script src="assets/js/drag-and-drop.js" charset="utf-8"></script>
+
 </body>
 
 </html>

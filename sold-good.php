@@ -51,7 +51,7 @@
             <div class="row d-flex justify-content-end">
                 <div class="col-lg-3 d-flex search"> <input type="text" class="form-control" placeholder="Пошук" autofocus> <button type="button" class=" mx-1 btn btn-secondary report-btn" data-bs-toggle="modal" data-bs-target="#setPeriodTimeToReport"> Звіт </button> </div>
             </div>
-        </div>.
+        </div>
         <div class="container ">
             <div class="table-scrollable ">
                 <table class="table table-hover text-center">

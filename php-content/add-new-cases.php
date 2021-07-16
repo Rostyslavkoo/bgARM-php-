@@ -24,17 +24,19 @@ $firstPriceCase = filter_var($_POST['firstPriceCase'],
     FILTER_SANITIZE_STRING );
     $firstPriceCase = mb_strtolower($firstPriceCase);
 
+$lastPriceCase = filter_var($_POST['lastPriceCase'],
+    FILTER_SANITIZE_STRING );
+    $lastPriceCase = mb_strtolower($lastPriceCase);
+
 $quantityNewCase = filter_var($_POST['quantityNewCase'],
     FILTER_SANITIZE_STRING );
     $quantityNewCase = mb_strtolower($quantityNewCase);
 
-
-$mysql = new mysqli('localhost', 'root', 'root','bgARM');
-@mysqli_set_charset($mysql, 'utf8');
+    require"../connect.php";
 
 
-  $mysql->query("INSERT INTO `all_avaible_goods`(`type_good`,`case_type`,`case_brand`,`phone_brand`,`color`,`cod`,`first_price`)
-  VALUES('чохол','$typeCase','$brandCase','$brandPhone','$caseColor','$idNewCase','$firstPriceCase')"); //  вношу дані в таблицю 'all_avaible_goods'
+  $mysql->query("INSERT INTO `all_avaible_goods`(`type_good`,`good_content`,`color`,`cod`,`quantity`,`first_price`,`last_price`)
+  VALUES('чохол','$brandCase $typeCase $brandPhone','$caseColor','$idNewCase','$quantityNewCase','$firstPriceCase','$lastPriceCase')"); //  вношу дані в таблицю 'all_avaible_goods'
 
 
   // $mysql->query("INSERT INTO `all_goods`(`type_good`,`case_type`,`case_brand`,`phone_brand`,`phone_model`,`color`,`cod`,`date`,`first_price`)
