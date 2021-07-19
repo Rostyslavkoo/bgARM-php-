@@ -9,6 +9,7 @@ $idAvaibleGood = filter_var($_POST['idAvaibleGood'],
 
    require"../connect.php";
 
+
   $mysql->query("UPDATE `all_avaible_goods` SET `quantity` = `quantity` + '$quantityAvaibleGood' WHERE `cod` = '$idAvaibleGood' "); 
   //  вношу дані в таблицю 'all_avaible_goods'
 
