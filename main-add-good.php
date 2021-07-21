@@ -28,6 +28,7 @@
 </head>
 
 <body>
+
     <?php
     require"connect.php";
     ?>
@@ -70,45 +71,54 @@
                             <th scope="col"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Фото товарy">Фото</span> </th>
                         </tr>
                     </thead>
-                     <?php
+                    <?php
 
-require "connect.php";
+                    require "connect.php";
 
-echo "<tbody>";
+                    echo "<tbody>";
 
-$query = "SELECT
-    `id`,
-    `type_good`,
-    `good_content`,
-    `color`,
-    `cod`,
-    `quantity`,
-    `first_price`,
-    `last_price`
-FROM
-    `all_avaible_goods`
-ORDER BY
-    id
-DESC
-    ";
-$i=0;
+                    $query = "SELECT
+                    `id`,
+                    `type_good`,
+                    `good_content`,
+                    `color`,
+                    `cod`,
+                    `quantity`,
+                    `first_price`,
+                    `last_price`,
+                    `id_photo`
+                    FROM
+                    `all_avaible_goods`
+                    ORDER BY
+                    id
+                    DESC
+                    ";
+                    $i=0;
 
 //$numrows = mysqli_num_rows( $query);
-if ($result = mysqli_query($mysql, $query)) {
+                    if ($result = mysqli_query($mysql, $query)) {
 
-  while ($row = mysqli_fetch_assoc($result)) { 
-      echo  '<tr>'.
-      '<th scope="row">'.$row["cod"].'</th>'.
-      '<td>'.$row["good_content"].'</td>'.
-      '<td>'.$row["color"].'</td>'.
-      '<td>'.$row["quantity"].'</td>'.
-      '<td>'.$row["first_price"].'</td>'.
-      '<td>'.$row["last_price"].'</td>'.
-       '<td class=" b-img-table"><i class="bi bi-image" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i></td>'.
+                      while ($row = mysqli_fetch_assoc($result)) { 
+                          echo  '<tr>'.
+                          '<th scope="row">'.$row["cod"].'</th>'.
+                          '<td>'.$row["good_content"].'</td>'.
+                          '<td>'.$row["color"].'</td>'.
+                          '<td>'.$row["quantity"].'</td>'.
+                          '<td>'.$row["first_price"].'</td>'.
+                          '<td>'.$row["last_price"].'</td>'.
+                          '<td class=" b-img-table"><i class="bi bi-image" data-bs-toggle="modal" data-bs-target="#staticBackdrop'.$row["id"].'"></i></td>'.
+                          '<div class="modal fade" id="staticBackdrop'.$row["id"].'" aria-hidden="true">'.
+                          '<div class="modal-dialog modal-dialog-centered modal-img-table">'.
+                          '<div class="modal-content">'.
+                          '<div class="modal-body">'.
+                          '<img src="uploads/'.$row["id_photo"].'" class="img-fluid" alt="">'.
+                          '</div>'.
+                          '</div>'.
+                          '</div>'.
+                          '</div>'.
 
-
-      '</tr> ';
-  }
+                          '</tr> ';
+                      }
 
   mysqli_free_result($result); // видалення
 }
@@ -118,16 +128,7 @@ echo"</tbody>";
 mysqli_close($mysql);
 
 ?>
-<div class="modal fade" id="staticBackdrop" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-img-table">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <picture>
-                                                <source srcset="assets/img/test-case.webp" type="image/webp"><img src="assets/img/test-case.jpeg" class="img-fluid" alt=""></picture>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                 </table>
             </div>
         </div>
@@ -190,7 +191,8 @@ mysqli_close($mysql);
                             <!-- back-2-add-avaible-goods --> <button type="button" class="btn btn-outline-red-400" onclick="            setTimeout(function(){ document.querySelector('#idSoldGood').focus(); }, 1000);            " data-bs-toggle="modal" data-bs-target="#modal_add_avaible" data-bs-dismiss="modal"> <i class="bi bi-box-arrow-left"></i> </button> </div>
                     </div>
                     <div class="container">
-                        <form action="php-content/add-new-cases.php" method="post">
+                        <!-- add new cases -->
+                        <form id="uploadNewCaseForm" enctype="multipart/form-data">
                             <div class="row add_cases">
                                 <div class="col">
                                     <div class="form"> <input id="idNewCase" name="idNewCase" type="text" class="form__input form-control" required placeholder=" "> <label for="idNewCase" class="form__label">Код товару</label> </div>
@@ -204,18 +206,23 @@ mysqli_close($mysql);
                                 </div>
                                 <div class="row m-0">
                                     <div class="drag-and-drop-add-case ">
-                                        <div class="drag-and-drop-content py-3" tabindex="0"> <label for="new_case_img"><i class="bi bi-file-earmark-plus d-flex justify-content-center  "></i></label> <input type="file" id="new_case_img" name="new_case_img" required accept="image/png, image/jpeg" style="display:none"> </div>
+                                        <div class="drag-and-drop-content py-3" tabindex="0"> <label for="image"><i class="bi bi-file-earmark-plus d-flex justify-content-center  "></i></label> <input type="file" id="image" name="image"  accept="image/png, image/jpeg" style="display:none"> </div>
                                         <div class="drag-and-drop-img ">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
 
-                                    <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" min="1" max="999" name="quantityNewCase" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button"onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"><i class="bi bi-plus"></i> </button> </div>         <div class="form w-75"> <input type="text" id="lastPriceCase" name="lastPriceCase" class="form__input form-control "style="margin-top: 2px;" required autocomplete="off" placeholder=" "> <label for="lastPriceCase" class="form__label">Ціна продажу(шт)</label> </div> <button type="submit" class="btn btn-success upload-newgood-btn" disabled="true" onclick="uploadImg()" >Додати до складу</button>
+                                    <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input id="quantityNewCase"class="quantity" min="1" max="999" name="quantityNewCase" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button"onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"><i class="bi bi-plus"></i> </button> </div>         <div class="form w-75"> <input type="text" id="lastPriceCase" name="lastPriceCase" class="form__input form-control "style="margin-top: 2px;" required autocomplete="off" placeholder=" "> <label for="lastPriceCase" class="form__label">Ціна продажу(шт)</label> </div> 
+
+                                    <button id="uploadNewCaseBtn"type="button" class="btn btn-success upload-newgood-btn" onclick="uploadImg()"disabled >  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderNewcaseBTn" style="display: none;"></span>
+  Додати до складу</button>
+                                  
                                 </div>
                             </div>
                         </form>
-                        <form action="">
+                        <!-- add new charges -->
+                        <form id="uploadNewChargeForm">
                             <div class="row  add_charges">
                                 <div class="col">
                                     <div class="form"> <input type="text" id="idNewCharge" name="idNewCharge" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="idNewCharge" class="form__label">Код товару</label> </div>
@@ -232,17 +239,16 @@ mysqli_close($mysql);
                                         <div class="form "> <input type="text" id="firstPriceCharge" name="firstPriceCharge" class="form__input form-control " required autocomplete="off" placeholder=" " style="width: 100%;"> <label for="firstPriceCharge" class="form__label ">Ціна товару(шт)</label> </div>
                                     </div>
                                     <div class="drag-and-drop-add-charge col d-flex">
-                                        <div class="drag-and-drop-content py-3 m-0" tabindex="0"> <label for="new_case_img"><i class="bi bi-file-earmark-plus d-flex justify-content-center  "></i></label> <input type="file" id="new_charge_img" name="new_charge_img" required accept="image/png, image/jpeg" style="display:none"> </div>
+                                        <div class="drag-and-drop-content py-3 m-0" tabindex="0"> <label for="new_charge_img"><i class="bi bi-file-earmark-plus d-flex justify-content-center  "></i></label> <input type="file" id="new_charge_img" name="new_charge_img" required accept="image/png, image/jpeg" style="display:none"> </div>
                                     </div>
                                 </div>
                                 <div class="row drag-and-drop-img-charge">
                                     <div class="drag-and-drop-img">
-                                        <picture>
-                                            <source srcset="assets/img/test-case.webp" type="image/webp"><img src="assets/img/test-case.jpeg" alt=""></picture>
+                                       
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" min="1" max="999" name="quantity" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div>     <div class="form w-75"> <input type="text" id="lastPriceCharge" name="lastPriceCharge" class="form__input form-control "style="margin-top: 2px;" required autocomplete="off" placeholder=" "> <label for="lastPriceCharge" class="form__label">Ціна продажу(шт)</label> </div> <button type="submit" class="btn btn-success">Додати до складу</button>
+                                    <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input id="quantityNewCharge"class="quantity" min="1" max="999" name="quantity" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div>     <div class="form w-75"> <input type="text" id="lastPriceCharge" name="lastPriceCharge" class="form__input form-control "style="margin-top: 2px;" required autocomplete="off" placeholder=" "> <label for="lastPriceCharge" class="form__label">Ціна продажу(шт)</label> </div> <button type="button" class="btn btn-success" id="uploadNewChargesBtn">Додати до складу</button>
                                 </div>
                             </div>
                         </form>
@@ -280,11 +286,13 @@ mysqli_close($mysql);
     </div> <!-- bootstrap link js  -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
-    <script src=""> </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
+
     <script src="assets/js/main.min.js" charset="utf-8"></script>
     <script src="assets/js/search-table.js" charset="utf-8"></script>
     <script src="assets/js/drag-and-drop.js" charset="utf-8"></script>
+    <script src="assets/js/upload-charges.js" charset="utf-8"></script>
+    <script src="assets/js/upload-cases.js" charset="utf-8"></script>
 
 </body>
 

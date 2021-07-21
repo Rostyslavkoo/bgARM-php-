@@ -1,7 +1,5 @@
 <?php
 
-// получаем информацию о файале из ключа image
-
 $images = $_FILES;
 $types = ["image/jpeg", "image/png", "image/webp"];
 
@@ -38,8 +36,7 @@ $fileName = time() . ".$extension";
     if (!move_uploaded_file($image["tmp_name"], "../uploads/" . $fileName)) {
         die('Error upload file');
     }
- 
 }
 
-
 echo json_encode(["status" => true]);
+

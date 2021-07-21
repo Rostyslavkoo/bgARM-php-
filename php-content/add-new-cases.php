@@ -34,9 +34,8 @@ $quantityNewCase = filter_var($_POST['quantityNewCase'],
 
     require"../connect.php";
 
-
-  $mysql->query("INSERT INTO `all_avaible_goods`(`type_good`,`good_content`,`color`,`cod`,`quantity`,`first_price`,`last_price`,`id_photo`)
-  VALUES('чохол','$brandCase $typeCase $brandPhone','$caseColor','$idNewCase','$quantityNewCase','$firstPriceCase','$lastPriceCase','test')"); //  вношу дані в таблицю 'all_avaible_goods'
+    $mysql->query("INSERT INTO `all_avaible_goods`(`type_good`,`good_content`,`color`,`cod`,`quantity`,`first_price`,`last_price`,`id_photo`)
+    VALUES('чохол','$brandCase $typeCase $brandPhone','$caseColor','$idNewCase','$quantityNewCase','$firstPriceCase','$lastPriceCase','$fileName')"); //  вношу дані в таблицю 'all_avaible_goods'
 
 
   // $mysql->query("INSERT INTO `all_goods`(`type_good`,`case_type`,`case_brand`,`phone_brand`,`phone_model`,`color`,`cod`,`date`,`first_price`)
@@ -52,5 +51,4 @@ $quantityNewCase = filter_var($_POST['quantityNewCase'],
 //   mysqli_close($mysql);
 // }
 
-header("Location:../main-add-good.php");
 
