@@ -59,7 +59,7 @@
         </div>
         <div class="container text-center">
             <div class="table-scrollable ">
-                <table class="table table-hover"id="info-table">
+                <table class="table table-hover" id="info-table">
                     <thead>
                         <tr>
                             <th scope="col"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Код товару">№</span> </th>
@@ -75,7 +75,7 @@
 
                     require "connect.php";
 
-                    echo "<tbody>";
+                    echo "<tbody id='avaibleGoodsTable'>";
 
                     $query = "SELECT
                     `id`,
@@ -116,7 +116,6 @@
                           '</div>'.
                           '</div>'.
                           '</div>'.
-
                           '</tr> ';
                       }
 
@@ -202,7 +201,7 @@ mysqli_close($mysql);
                                 <div class="col">
                                     <div class="form"> <input type="text" id="brandPhone" name="brandPhone" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="brandPhone" class="form__label">Марка телефона</label> </div>
                                     <div class="form"> <input type="text" id="caseColor" name="caseColor" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="caseColor" class="form__label">Колір чохла</label> </div>
-                                    <div class="form"> <input type="text" id="firstPriceCase" name="firstPriceCase" class="form__input form-control " required autocomplete="off" placeholder=" "> <label for="firstPriceCase" class="form__label">Ціна товару(шт)</label> </div>
+                                    <div class="form"> <input type="text" id="firstPriceCase" onKeyPress="onlyNumber()" name="firstPriceCase" class="form__input form-control " required autocomplete="off" placeholder=" "> <label for="firstPriceCase" class="form__label">Ціна товару(шт)</label> </div>
                                 </div>
                                 <div class="row m-0">
                                     <div class="drag-and-drop-add-case ">
@@ -213,7 +212,7 @@ mysqli_close($mysql);
                                 </div>
                                 <div class="modal-footer">
 
-                                    <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input id="quantityNewCase"class="quantity" min="1" max="999" name="quantityNewCase" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button"onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"><i class="bi bi-plus"></i> </button> </div>         <div class="form w-75"> <input type="text" id="lastPriceCase" name="lastPriceCase" class="form__input form-control "style="margin-top: 2px;" required autocomplete="off" placeholder=" "> <label for="lastPriceCase" class="form__label">Ціна продажу(шт)</label> </div> 
+                                    <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input id="quantityNewCase"class="quantity" min="1" max="999" name="quantityNewCase" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button"onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"><i class="bi bi-plus"></i> </button> </div>         <div class="form w-75"> <input type="text" onKeyPress="onlyNumber()" id="lastPriceCase" name="lastPriceCase" class="form__input form-control "style="margin-top: 2px;" required autocomplete="off" placeholder=" "> <label for="lastPriceCase" class="form__label">Ціна продажу(шт)</label> </div> 
 
                                     <button id="uploadNewCaseBtn"type="button" class="btn btn-success upload-newgood-btn" onclick="uploadImg()"disabled >  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderNewcaseBTn" style="display: none;"></span>
   Додати до складу</button>
@@ -293,6 +292,7 @@ mysqli_close($mysql);
     <script src="assets/js/drag-and-drop.js" charset="utf-8"></script>
     <script src="assets/js/upload-charges.js" charset="utf-8"></script>
     <script src="assets/js/upload-cases.js" charset="utf-8"></script>
+    <script src="assets/js/validate-input.js" charset="utf-8"></script>
 
 </body>
 

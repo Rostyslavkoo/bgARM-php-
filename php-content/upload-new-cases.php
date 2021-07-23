@@ -1,7 +1,4 @@
-<pre>
-    <?php print_r($_POST)
-?>
-</pre>
+
 <?php
 
 
@@ -82,16 +79,21 @@ $fileName = time() . ".$extension";
         );
         $imagickDst->setImageFormat('jpg');
         $imagickDst->writeImage($img);
-
+;
     };
-  echo($compressFile);
+
      img_compress($compressFile);
               require"../connect.php";
 
-    $mysql->query("INSERT INTO `all_avaible_goods`(`type_good`,`good_content`,`color`,`cod`,`quantity`,`first_price`,`last_price`,`id_photo`)
+$res = $mysql->query("SELECT `cod` FROM `all_avaible_goods` WHERE `cod` = '$idNewCase'");
+$count = mysqli_num_rows($res);
+if( $count > 0 ) {
+  echo("Товар з даним кодом уже зареєстрований на складі");
+  die(); 
+} else {
+  $mysql->query("INSERT INTO `all_avaible_goods`(`type_good`,`good_content`,`color`,`cod`,`quantity`,`first_price`,`last_price`,`id_photo`)
     VALUES('чохол','$brandCase $typeCase $brandPhone','$caseColor','$idNewCase','$quantityNewCase','$firstPriceCase','$lastPriceCase','$fileName')");
-
-echo($fileName);
+}
 }echo json_encode(["status" => true]);
 
 

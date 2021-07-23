@@ -17,7 +17,7 @@ uploadBtnCase.addEventListener('click', (e) => {
         alert("Введіть код чохла")
         return false;
     } else if (typeCase.value == "") {
-        alert("Введіть тип чохла")
+        alert("Введіть типццччіч чохла")
         return false;
     } else if (brandCase.value == "") {
         alert("Введіть бренд чохла")
@@ -67,7 +67,9 @@ uploadBtnCase.addEventListener('click', (e) => {
             } else {
 
                 $("#uploadNewCaseForm").trigger("reset");
-                uploadBtn.removeAttribute('disabled')
+                uploadBtn.removeAttribute('disabled');
+                $("#info-table").innerHTML = idNewCaseValue.value;
+                alert("все круто")
 
             }
         },
