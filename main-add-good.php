@@ -111,7 +111,7 @@
                           '<div class="modal-dialog modal-dialog-centered modal-img-table">'.
                           '<div class="modal-content">'.
                           '<div class="modal-body">'.
-                          '<img src="uploads/'.$row["id_photo"].'" class="img-fluid" alt="">'.
+                          '<img loading="lazy"src="uploads/'.$row["id_photo"].'" class="img-fluid" alt="">'.
                           '</div>'.
                           '</div>'.
                           '</div>'.
