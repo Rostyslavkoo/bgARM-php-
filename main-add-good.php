@@ -28,7 +28,21 @@
 </head>
 
 <body>
+      <div id="toast-container" class="position-absolute" style="z-index: 100;"></div>
 
+<!-- <div class="toast" id="avaibleGoodToats" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; z-index: 100;">
+  <div class="toast-header">
+    <img src="assets/img/favicon/favicon-96x96.webp" class="rounded mr-2" alt="logo" style="width: 1rem; height: 1rem; margin-right:0.3rem;">
+    <strong class="mr-auto">BigUpCase</strong>
+    <small class="text-muted">11 mins ago</small>
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+<i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+  <div class="toast-body">
+    Ваші дані застарілі, оновіть сторінку
+  </div>
+</div> -->
     <?php
     require"connect.php";
     ?>
@@ -300,6 +314,7 @@ mysqli_close($mysql);
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
+<script src="https://momentjs.com/downloads/moment.min.js"></script>
 
     <script src="assets/js/main.min.js" charset="utf-8"></script>
     <script src="assets/js/search-table.js" charset="utf-8"></script>
@@ -308,6 +323,7 @@ mysqli_close($mysql);
     <script src="assets/js/upload-cases.js" charset="utf-8"></script>
     <script src="assets/js/validate-input.js" charset="utf-8"></script>
     <script src="assets/js/upload-new-goods.js" charset="utf-8"></script>
+    <script src="assets/js/toasts.js" charset="utf-8"></script>
 
 </body>
 
