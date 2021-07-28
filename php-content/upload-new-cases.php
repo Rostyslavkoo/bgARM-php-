@@ -88,7 +88,7 @@ $fileName = time() . ".$extension";
 $res = $mysql->query("SELECT `cod` FROM `all_avaible_goods` WHERE `cod` = '$idNewCase'");
 $count = mysqli_num_rows($res);
 if( $count > 0 ) {
-  echo("Товар з даним кодом уже зареєстрований на складі");
+  echo("This product is already in stock");
   die(); 
 } else {
   $mysql->query("INSERT INTO `all_avaible_goods`(`type_good`,`good_content`,`color`,`cod`,`quantity`,`first_price`,`last_price`,`id_photo`)

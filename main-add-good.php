@@ -149,10 +149,10 @@ mysqli_close($mysql);
                             <div class="col col-lg-3"> <button type="button" onclick="show_cases()" class="btn btn-indigo-600 " id="btnNew" data-bs-toggle="modal" data-bs-target="#modal_add_new" data-bs-dismiss="modal"> <i class="bi bi-list"> </i> Новий </button> </div>
                         </div>
                         <div class="c-table-add-avaible table-responsive">
-                            <table class="table">
+                            <table class="table"id="checkAvaibleTable">
                                 <tbody>
-                                    <tr class="d-flex align-items-center justify-content-between">
-                                        <td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Код товару">НФ-12431</span> </td>
+                                    <tr class=" align-items-center justify-content-between" id="dataCheckAvaibleInfo"style="display: flex">
+                                     <!--    <td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Код товару">НФ-12431</span> </td>
                                         <td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Тип та назва товару">Задній бампер Silicone 1:1 Iphone 7/8</span> </td>
                                         <td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Колір">Чорний</span> </td>
                                         <td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Кількість">10</span> </td>
@@ -161,14 +161,28 @@ mysqli_close($mysql);
                                         <td class="c-img-table">
                                             <picture>
                                                 <source srcset="assets/img/test-case.webp" type="image/webp"><img src="assets/img/test-case.jpeg" alt="image"></picture>
-                                        </td>
+                                        </td> -->
+                                        <td id="addAvaibleTxt"class="w-100 text-center">Введіть код товару</td>
+                                        <td id="addAvaibleEmptyTxt"class="w-100 text-center"style="display:none">Такого товару не існує</td>
+                                        <td id="addAvaibleSpin"class="w-100 text-center"style="display:none"><div class="spinner-grow m-1" style="width: 1rem; height:1rem;" role="status">
+                                          <span class="sr-only"></span>
+                                      </div><div class="spinner-grow m-1" style="width: 1rem; height: 1rem;" role="status">
+                                          <span class="sr-only"></span>
+                                      </div><div class="spinner-grow m-1" style="width: 1rem; height: 1rem;" role="status">
+                                          <span class="sr-only"></span>
+                                      </div></td>
                                     </tr>
+                                    <tr class=" align-items-center justify-content-between" id="tmpCheckDataTable" style="display: none">
+                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>
                 </div>
                 <div class="modal-footer ">
-                    <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" min="1" max="999" name="quantityAvaibleGood" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button"onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div> <button type="submit" class="btn btn-success" disabled="true">Додати до складу</button>
+                    <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" id="quantityNewAvaibleGood"min="1" max="999" name="quantityAvaibleGood" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button"onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div>
+                        <button id="addAvaibleBtn"type="button" class="btn btn-success upload-newgood-btn" onclick="uploadAvaibleGood()"disabled >  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderAddAvaibleBtn" style="display: none;"></span>
+  Додати до складу</button>
                 </div>
                 </form>
             </div>
@@ -293,6 +307,7 @@ mysqli_close($mysql);
     <script src="assets/js/upload-charges.js" charset="utf-8"></script>
     <script src="assets/js/upload-cases.js" charset="utf-8"></script>
     <script src="assets/js/validate-input.js" charset="utf-8"></script>
+    <script src="assets/js/upload-new-goods.js" charset="utf-8"></script>
 
 </body>
 

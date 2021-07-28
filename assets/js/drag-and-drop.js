@@ -116,7 +116,7 @@ tmpUrlImg = [imgTempUrl]
              $('#loaderNewcaseBTn').css("display", "inline-block")
          },
          success: function(data) {
-             if (data.match('Товар існує')) {
+             if (data.match('This product is already in stock')) {
                  alert(data);
                  $('#loaderNewcaseBTn').css("display", "none")
                  uploadNewGoodBtn.removeAttribute('disabled')
