@@ -1,7 +1,9 @@
  let dragAndDrop = document.querySelector('.drag-and-drop-content')
+ let dragAndDropCharge = document.querySelector('#drag-and-drop-charge')
  let dragAndDropIco = document.querySelector('.bi-file-earmark-plus')
  let imagesList = document.querySelector('.drag-and-drop-img')
- let uploadNewGoodBtn = document.querySelector('.upload-newgood-btn')
+ let imagesListCharge = document.querySelector('#drag-and-drop-img-charge')
+ let uploadNewGoodBtn = document.querySelector('#uploadNewCaseBtn')
  let uploadBtnCase = document.getElementById('uploadNewCaseBtn');
 
  let idNewCaseValue = document.getElementById('idNewCase')
@@ -37,72 +39,140 @@
      e.preventDefault();
 
      const files = e.dataTransfer.files
-     for (let key in files) {
+     for (let key in files) { // validate upload img
          if (!types.includes(files[key].type) || imagesForUpload.length > 0) {
              continue;
 
          }
-         imagesForUpload.push(files[key])
+
+         imagesForUpload.push(files[key]) // create trmporal img
          let imgTempUrl = URL.createObjectURL(files[key])
 
-         console.log(imgTempUrl)
-         imagesList.innerHTML += `<img src="${imgTempUrl}" alt="">`
-tmpUrlImg = [imgTempUrl]
-     }
-     console.log(imagesForUpload)
 
+         imagesList.innerHTML += `<img src="${imgTempUrl}" alt="">` // output img
+         tmpUrlImg = [imgTempUrl] // upload img in massive
+     }
+     // unlock upload
      if (imagesForUpload.length > 0) {
          uploadNewGoodBtn.removeAttribute('disabled')
      }
-
-
+ })
+ dragAndDropCharge.addEventListener('dragenter', (e) => {
+     e.preventDefault();
+     dragAndDrop.classList.add('drag-and-drop-content__active')
  })
 
- const uploadImg = () => {
+ dragAndDropCharge.addEventListener('dragleave', (e) => {
+     e.preventDefault();
+     dragAndDrop.classList.remove('drag-and-drop-content__active')
+ })
 
+ dragAndDropCharge.addEventListener('dragover', (e) => {
+     e.preventDefault();
+ })
+
+ dragAndDropCharge.addEventListener('drop', (e) => {
+     e.preventDefault();
+
+     const files = e.dataTransfer.files
+     for (let key in files) { // validate upload img
+         if (!types.includes(files[key].type) || imagesForUpload.length > 0) {
+             continue;
+
+         }
+
+         imagesForUpload.push(files[key]) // create trmporal img
+         let imgTempUrl = URL.createObjectURL(files[key])
+
+
+         imagesListCharge.innerHTML += `<img src="${imgTempUrl}" alt="">` // output img
+         tmpUrlImg = [imgTempUrl] // upload img in massive
+     }
+     // unlock upload
+     if (imagesForUpload.length > 0) {
+         uploadNewGoodBtn.removeAttribute('disabled')
+         uploadBtn.removeAttribute('disabled')
+     }
+ })
+ // ulock upload btn
+ lastPriceCase.onkeyup = function() {
+     if (!lastPriceCase.value == ``) {
+         uploadNewGoodBtn.removeAttribute('disabled')
+     } else {
+         uploadNewGoodBtn.setAttribute("disabled", true);
+
+     }
+
+ }
+ //  upload cases
+ const uploadImg = () => {
+     // validate inputs
      if (idNewCase.value == "") {
-         alert("Введіть код чохла")
+         let date = Date().slice(16, 21);
+
+         createToast('Bigupcase', date, 'Введіть код чохла')
          return false;
      } else if (typeCase.value == "") {
-         alert("Введіть тип чохла")
+
+         let date = Date().slice(16, 21);
+
+         createToast('Bigupcase', date, 'Введіть тип чохла')
          return false;
      } else if (brandCase.value == "") {
-         alert("Введіть бренд чохла")
+         let date = Date().slice(16, 21);
+
+         createToast('Bigupcase', date, 'Введіть бренд чохла')
          return false;
      } else if (brandPhone.value == "") {
-         alert("Введіть марку телефона")
+         let date = Date().slice(16, 21);
+
+         createToast('Bigupcase', date, 'Введіть марку телефона')
          return false;
      } else if (caseColor.value == "") {
-         alert("Введіть колір чохла")
+         let date = Date().slice(16, 21);
+
+         createToast('Bigupcase', date, 'Введіть колір чохла')
          return false;
      } else if (firstPriceCase.value == "") {
-         alert("Введіть початкову ціну чохла")
+         let date = Date().slice(16, 21);
+
+         createToast('Bigupcase', date, 'Введіть початкову ціну чохла')
          return false;
      } else if (quantityNewCase.value == "" || quantityNewCase.value == 0) {
-         alert("Вкажіть кількість чохлів")
+         let date = Date().slice(16, 21);
+
+         createToast('Bigupcase', date, 'Вкажіть кількість чохлів')
          return false;
      } else if (lastPriceCase.value == "") {
-         alert("Вкажіть ціну продажу чохла")
+         let date = Date().slice(16, 21);
+
+         createToast('Bigupcase', date, 'Вкажіть ціну продажу чохла')
+         return false
+     }
+     if (!imagesForUpload.length > 0) {
+         let date = Date().slice(16, 21);
+
+         createToast('Bigupcase', date, 'Додайте зображення до товару')
          return false
      }
 
+
      let formData = new FormData();
-     for (let key in imagesForUpload) {
+     for (let key in imagesForUpload) { // upload img in formdata
          formData.append(key, imagesForUpload[key])
          console.log(imagesForUpload[key])
      }
-     formData.append('idNewCase', idNewCaseValue.value)
-     formData.append('typeCase', typeCase.value)
-     formData.append('brandPhone', brandPhone.value)
-     formData.append('caseColor', caseColor.value)
-     formData.append('brandCase', brandCase.value)
-     formData.append('firstPriceCase', firstPriceCase.value)
-     formData.append('quantityNewCase', quantityNewCase.value)
-     formData.append('lastPriceCase', lastPriceCase.value)
-     // fetch('php-content/upload-new-cases.php', {
-     //         method: "POST",
-     //         body: {'idNewCase': idNewCaseValue.value, 'typeCase': typeCase.value, 'brandPhone': brandPhone.value, 'caseColor': caseColor.value, 'brandCase': brandCase.value, 'firstPriceCase': firstPriceCase.value, 'quantityNewCase': quantityNewCase.value, 'lastPriceCase': lastPriceCase.value }
-     //     })
+     // upload input value in formdata
+     formData.append('idNewCase', idNewCaseValue.value.toLowerCase())
+     formData.append('typeCase', typeCase.value.toLowerCase())
+     formData.append('brandPhone', brandPhone.value.toLowerCase())
+     formData.append('caseColor', caseColor.value.toLowerCase())
+     formData.append('brandCase', brandCase.value.toLowerCase())
+     formData.append('firstPriceCase', firstPriceCase.value.toLowerCase())
+     formData.append('quantityNewCase', quantityNewCase.value.toLowerCase())
+     formData.append('lastPriceCase', lastPriceCase.value.toLowerCase())
+
+     // upload data in database
      $.ajax({
          url: 'php-content/upload-new-cases.php',
          type: 'POST',
@@ -116,79 +186,98 @@ tmpUrlImg = [imgTempUrl]
              $('#loaderNewcaseBTn').css("display", "inline-block")
          },
          success: function(data) {
+
+             // check is avaible good
              if (data.match('This product is already in stock')) {
-                 alert(data);
+                 let date = Date().slice(16, 21);
+
+                 createToast('Bigupcase', date, 'Даний товар уже існує на складі')
                  $('#loaderNewcaseBTn').css("display", "none")
                  uploadNewGoodBtn.removeAttribute('disabled')
              } else {
-                
+
                  uploadDataOnTable()
                  $("#uploadNewCaseForm").trigger("reset");
                  imagesForUpload = []
                  tmpUrlImg = []
                  imagesList.innerHTML = ``
                  $('#loaderNewcaseBTn').css("display", "none")
+                 let date = Date().slice(16, 21);
 
+                 createToast('Bigupcase', date, 'Новий товар додано')
              }
          },
      });
-     // .then(response => response.json())
-     // .then(result => {
-     //     if (result.status) {
-     // imagesForUpload = []
-     // imagesList.innerHTML = ``
-     // uploadNewGoodBtn.setAttribute("disabled", true)
-     //     }
-
-     // })
  }
 
+ // upload data on table
  function uploadDataOnTable(temp) {
 
      let caseTypeGood = brandCase.value + ' ' + typeCase.value + ' ' + brandPhone.value;
-     // let logoImgTable = innerHTML('<i class="bi bi-image" data-bs-toggle="modal" data-bs-target="#staticBackdrop id="imgLogoTable""></i>')
+     $('#avaibleGoodsTable').prepend('<tr>' +
+         '<th>' + idNewCaseValue.value + '</th>' +
+         '<td>' + caseTypeGood + '</td>' +
+         '<td>' + caseColor.value + '</td>' +
+         '<td>' + quantityNewCase.value + '</td>' +
+         '<td>' + firstPriceCase.value + '</td>' +
+         '<td>' + lastPriceCase.value + '</td>' +
+         '<td class=" b-img-table"><i class="bi bi-image" data-bs-toggle="modal" data-bs-target="#staticBackdrop' + idNewCaseValue.value + '"></i></td>' +
+         '</tr>');
+     $('.table-scrollable').prepend('<div class="modal fade" id="staticBackdrop' + idNewCaseValue.value + '" aria-hidden="true">' +
+         '<div class="modal-dialog modal-dialog-centered modal-img-table">' +
+         '<div class="modal-content">' +
+         '<div class="modal-body">' +
+         '<img src="' + tmpUrlImg + '" class="img-fluid" alt="">' +
+         '</div>' +
+         '</div>' +
+         '</div>')
+     console.log('новий товар' + caseTypeGood + ' доданий')
+     console.log(tmpUrlImg)
+ }
 
-     $('#avaibleGoodsTable').prepend('<tr>'
-         +'<th>' +idNewCaseValue.value +'</th>'
-         +'<td>' +caseTypeGood +'</td>'
-         +'<td>' +caseColor.value +'</td>'
-         +'<td>' +quantityNewCase.value +'</td>'
-         +'<td>' +firstPriceCase.value +'</td>'
-         +'<td>' +lastPriceCase.value +'</td>'
-          +'<td class=" b-img-table"><i class="bi bi-image" data-bs-toggle="modal" data-bs-target="#staticBackdrop'+idNewCaseValue.value+'"></i></td>'
-         +'</tr>');
-$('.table-scrollable').prepend('<div class="modal fade" id="staticBackdrop'+idNewCaseValue.value+'" aria-hidden="true">'
-                          +'<div class="modal-dialog modal-dialog-centered modal-img-table">'
-                          +'<div class="modal-content">'
-                          +'<div class="modal-body">'
-                          +'<img src="'+tmpUrlImg+'" class="img-fluid" alt="">'
-                          +'</div>'
-                          +'</div>'
-                          +'</div>')
-         console.log('новий товар' +caseTypeGood+ ' доданий' )
+ //  upload img by input
+ const inputElementCase = document.getElementById("image");
+ const inputElementCharge = document.getElementById("new_charge_img");
+ inputElementCase.addEventListener("change", handleFiles, false);
+ inputElementCharge.addEventListener("change", handleFilesCharge, false);
 
-console.log(tmpUrlImg)
-     }
-     const inputElement = document.getElementById("image");
-     inputElement.addEventListener("change", handleFiles, false);
+ function handleFiles() {
+     const fileList = this.files; /* now you can work with the file list */
+     for (var key in fileList) {
+         if (!types.includes(fileList[key].type) || imagesForUpload.length > 0) {
+             continue;
 
-     function handleFiles() {
-         const fileList = this.files; /* now you can work with the file list */
-         for (var key in fileList) {
-             if (!types.includes(fileList[key].type) || imagesForUpload.length > 0) {
-                 continue;
-
-             }
-             imagesForUpload.push(fileList[key])
-             var imgTempUrl = URL.createObjectURL(fileList[key])
-             console.log(imgTempUrl)
-             imagesList.innerHTML += `<img src="${imgTempUrl}" alt="">`
-           tmpUrlImg = [imgTempUrl]
          }
-
-         console.log(fileList)
-         if (imagesForUpload.length > 0) {
-             uploadNewGoodBtn.removeAttribute('disabled')
-         }
-
+         imagesForUpload.push(fileList[key])
+         var imgTempUrl = URL.createObjectURL(fileList[key])
+         console.log(imgTempUrl)
+         imagesList.innerHTML += `<img src="${imgTempUrl}" alt="">`
+         tmpUrlImg = [imgTempUrl]
      }
+
+     console.log(fileList)
+     if (imagesForUpload.length > 0) {
+         uploadNewGoodBtn.removeAttribute('disabled')
+     }
+ }
+
+ function handleFilesCharge() {
+     const fileList = this.files; /* now you can work with the file list */
+     for (var key in fileList) {
+         if (!types.includes(fileList[key].type) || imagesForUpload.length > 0) {
+             continue;
+
+         }
+         imagesForUpload.push(fileList[key])
+         var imgTempUrl = URL.createObjectURL(fileList[key])
+         console.log(imgTempUrl)
+         imagesListCharge.innerHTML += `<img src="${imgTempUrl}" alt="">`
+         tmpUrlImg = [imgTempUrl]
+     }
+
+     console.log(fileList)
+     if (imagesForUpload.length > 0) {
+         uploadNewGoodBtn.removeAttribute('disabled')
+         uploadBtn.removeAttribute('disabled')
+     }
+ }

@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>BigUpCase | Довання товару </title>
     <link rel="stylesheet" href="assets/css/style.min.css">
-    <link rel="stylesheet" href="assets/css/style.min.css">
     <link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicon/apple-icon-57x57.webp">
     <link rel="apple-touch-icon" sizes="60x60" href="assets/img/favicon/apple-icon-60x60.webp">
     <link rel="apple-touch-icon" sizes="72x72" href="assets/img/favicon/apple-icon-72x72.webp">
@@ -28,7 +27,8 @@
 </head>
 
 <body>
-      <div id="toast-container" class="position-absolute" style="z-index: 100;"></div>
+
+      <div id="toast-container" class="toast-container position-fixed top-0 start-0 p-1" style="z-index: 1100;"> </div>
 
 <!-- <div class="toast" id="avaibleGoodToats" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; z-index: 100;">
   <div class="toast-header">
@@ -148,7 +148,7 @@ mysqli_close($mysql);
     </div> <!-- ALL MODALS -->
     <!-- Add-new-good-modal -->
     <div class="modal fade" id="modal_add_avaible" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
             <div class="modal-content  c-modal-content ">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Додати товар на склад</h5> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -166,16 +166,7 @@ mysqli_close($mysql);
                             <table class="table"id="checkAvaibleTable">
                                 <tbody>
                                     <tr class=" align-items-center justify-content-between" id="dataCheckAvaibleInfo"style="display: flex">
-                                     <!--    <td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Код товару">НФ-12431</span> </td>
-                                        <td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Тип та назва товару">Задній бампер Silicone 1:1 Iphone 7/8</span> </td>
-                                        <td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Колір">Чорний</span> </td>
-                                        <td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Кількість">10</span> </td>
-                                        <td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Початкова ціна">50</span> </td>
-                                        <td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Ціна продажу">100</span> </td>
-                                        <td class="c-img-table">
-                                            <picture>
-                                                <source srcset="assets/img/test-case.webp" type="image/webp"><img src="assets/img/test-case.jpeg" alt="image"></picture>
-                                        </td> -->
+                                 
                                         <td id="addAvaibleTxt"class="w-100 text-center">Введіть код товару</td>
                                         <td id="addAvaibleEmptyTxt"class="w-100 text-center"style="display:none">Такого товару не існує</td>
                                         <td id="addAvaibleSpin"class="w-100 text-center"style="display:none"><div class="spinner-grow m-1" style="width: 1rem; height:1rem;" role="status">
@@ -186,7 +177,7 @@ mysqli_close($mysql);
                                           <span class="sr-only"></span>
                                       </div></td>
                                     </tr>
-                                    <tr class=" align-items-center justify-content-between" id="tmpCheckDataTable" style="display: none">
+                                    <tr class=" align-items-center justify-content-between p-1" id="tmpCheckDataTable" style="display: none!important">
                                     </tr>
 
                                 </tbody>
@@ -205,7 +196,7 @@ mysqli_close($mysql);
     <div class="modal fade" id="modal_add_new" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content c-modal-content">
-                <div class="modal-header">
+                <div class="modal-header ">
                     <h5 class="modal-title" id="staticBackdropLabel">Додати новий товар на склад</h5> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -233,7 +224,7 @@ mysqli_close($mysql);
                                 </div>
                                 <div class="row m-0">
                                     <div class="drag-and-drop-add-case ">
-                                        <div class="drag-and-drop-content py-3" tabindex="0"> <label for="image"><i class="bi bi-file-earmark-plus d-flex justify-content-center  "></i></label> <input type="file" id="image" name="image"  accept="image/png, image/jpeg" style="display:none"> </div>
+                                        <div class="drag-and-drop-content py-3" tabindex="0"> <label for="image"><i class="bi bi-file-earmark-plus d-flex justify-content-center  "></i></label> <input type="file" id="image"  class="inputFile" name="image"  accept="image/png, image/jpeg" style="display:none"> </div>
                                         <div class="drag-and-drop-img ">
                                         </div>
                                     </div>
@@ -259,23 +250,23 @@ mysqli_close($mysql);
                                 <div class="col">
                                     <div class="form"> <input type="text" id="connector" name="connector" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="connector" class="form__label">Роз'єм</label> </div>
                                     <div class="form"> <input type="text" id="colorCharge" name="colorCharge" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="colorCharge" class="form__label">Колір</label> </div>
-                                    <div class="form"> <input type="text" id="length" name="length" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="length" class="form__label">Довжина</label> </div>
+                                    <div class="form"> <input type="text" id="length" name="length" onKeyPress="onlyNumber()" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="length" class="form__label">Довжина(м)</label> </div>
                                 </div>
                                 <div class="row align-items-center justify-content-between  c-drag-and-drop-sm ">
                                     <div class="col">
-                                        <div class="form "> <input type="text" id="firstPriceCharge" name="firstPriceCharge" class="form__input form-control " required autocomplete="off" placeholder=" " style="width: 100%;"> <label for="firstPriceCharge" class="form__label ">Ціна товару(шт)</label> </div>
+                                        <div class="form "> <input type="text" onKeyPress="onlyNumber()" id="firstPriceCharge" name="firstPriceCharge" class="form__input form-control " required autocomplete="off" placeholder=" " style="width: 100%;"> <label for="firstPriceCharge" class="form__label ">Ціна товару(шт)</label> </div>
                                     </div>
                                     <div class="drag-and-drop-add-charge col d-flex">
-                                        <div class="drag-and-drop-content py-3 m-0" tabindex="0"> <label for="new_charge_img"><i class="bi bi-file-earmark-plus d-flex justify-content-center  "></i></label> <input type="file" id="new_charge_img" name="new_charge_img" required accept="image/png, image/jpeg" style="display:none"> </div>
+                                        <div class="drag-and-drop-content py-3 m-0" tabindex="0" id="drag-and-drop-charge"> <label for="new_charge_img"><i class="bi bi-file-earmark-plus d-flex justify-content-center  "></i></label> <input type="file"  class="inputFile" id="new_charge_img" name="new_charge_img" required accept="image/png, image/jpeg" style="display:none"> </div>
                                     </div>
                                 </div>
                                 <div class="row drag-and-drop-img-charge">
-                                    <div class="drag-and-drop-img">
+                                    <div class="drag-and-drop-img" id="drag-and-drop-img-charge">
                                        
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input id="quantityNewCharge"class="quantity" min="1" max="999" name="quantity" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div>     <div class="form w-75"> <input type="text" id="lastPriceCharge" name="lastPriceCharge" class="form__input form-control "style="margin-top: 2px;" required autocomplete="off" placeholder=" "> <label for="lastPriceCharge" class="form__label">Ціна продажу(шт)</label> </div> <button type="button" class="btn btn-success" id="uploadNewChargesBtn">Додати до складу</button>
+                                    <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input id="quantityNewCharge"class="quantity" min="1" max="999" name="quantity" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div>     <div class="form w-75"> <input type="text" id="lastPriceCharge" name="lastPriceCharge" class="form__input form-control "style="margin-top: 2px;" onKeyPress="onlyNumber()" required autocomplete="off" placeholder=" "> <label for="lastPriceCharge" class="form__label">Ціна продажу(шт)</label> </div> <button type="button" class="btn btn-success" disabled id="uploadNewChargesBtn"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderNewChargeBtn" style="display: none;"></span>Додати до складу</button>
                                 </div>
                             </div>
                         </form>
@@ -314,13 +305,11 @@ mysqli_close($mysql);
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
-<script src="https://momentjs.com/downloads/moment.min.js"></script>
 
     <script src="assets/js/main.min.js" charset="utf-8"></script>
     <script src="assets/js/search-table.js" charset="utf-8"></script>
     <script src="assets/js/drag-and-drop.js" charset="utf-8"></script>
     <script src="assets/js/upload-charges.js" charset="utf-8"></script>
-    <script src="assets/js/upload-cases.js" charset="utf-8"></script>
     <script src="assets/js/validate-input.js" charset="utf-8"></script>
     <script src="assets/js/upload-new-goods.js" charset="utf-8"></script>
     <script src="assets/js/toasts.js" charset="utf-8"></script>

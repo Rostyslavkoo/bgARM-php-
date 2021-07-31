@@ -13245,8 +13245,8 @@ a {
 
 @media (max-width:991px) {
     .c-table-add-avaible .table tr {
-        height: auto
-        
+        height: auto;
+        padding:  0 0.5rem;
     }
 
     #tmpCheckDataTable td,
