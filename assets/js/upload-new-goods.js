@@ -93,7 +93,6 @@ inputAvaibleCod.onkeyup = function() {
 
     }
 }
-
 const uploadAvaibleGood = () => {
     if (quantityNewAvaibleGood.value == "" || quantityNewAvaibleGood.value == 0) {
         let date = Date().slice(16, 21);
