@@ -120,8 +120,11 @@ uploadBtn.addEventListener('click', () => {
 
                 $("#uploadNewCaseForm").trigger("reset");
                 imagesForUpload = []
-                tmpUrlImg = []
-                imagesListCharge.innerHTML = ``
+                tmpUrlImg = [];
+                        [].forEach.call(imagesList, el => {
+                              el.innerHTML =``
+
+})
                 // $('#loaderNewcaseBTn').css("display", "none")
                   let date = Date().slice(16, 21);
 

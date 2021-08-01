@@ -40,26 +40,37 @@ let idNewGlass = document.querySelector('#idNewGlass')
 var c_fourth_breakpoint = window.matchMedia("(max-width: 530px)")
 
 function show_cases() {
-       if (c_fourth_breakpoint.matches) { 
-    addCase.style.display = 'block';
-  } else {
-    addCase.style.display = 'flex';
-  }
+    if (c_fourth_breakpoint.matches) {
+        addCase.style.display = 'block';
+    } else {
+        addCase.style.display = 'flex';
+    }
+    imagesForUpload = []
+    tmpUrlImg = [];
+    [].forEach.call(imagesList, el => {
+        el.innerHTML = ``
+    })
     addCharge.style.display = 'none';
     addGlass.style.display = 'none';
     btnCase.classList.add("_active-btn");
     btnGlass.classList.remove("_active-btn");
     btnCharge.classList.remove("_active-btn");
-      setTimeout(function(){ document.querySelector('#idNewCase').focus(); }, 1000);
+    setTimeout(function() { document.querySelector('#idNewCase').focus(); }, 1000);
 
 }
 
 function show_charge() {
-     if (c_fourth_breakpoint.matches) { 
-    addCharge.style.display = 'block';
-  } else {
-    addCharge.style.display = 'flex';
-  }
+    if (c_fourth_breakpoint.matches) {
+        addCharge.style.display = 'block';
+    } else {
+        addCharge.style.display = 'flex';
+    }
+    
+    imagesForUpload = []
+    tmpUrlImg = [];
+    [].forEach.call(imagesList, el => {
+        el.innerHTML = ``
+    })
     addGlass.style.display = 'none';
     addCase.style.display = 'none';
     btnCharge.classList.add("_active-btn");
@@ -71,11 +82,17 @@ function show_charge() {
 }
 
 function show_glasse() {
-       if (c_fourth_breakpoint.matches) { 
-    addGlass.style.display = 'block';
-  } else {
-    addGlass.style.display = 'flex';
-  }
+    imagesList.innerHTML = ``
+    if (c_fourth_breakpoint.matches) {
+        addGlass.style.display = 'block';
+    } else {
+        addGlass.style.display = 'flex';
+    }
+    imagesForUpload = []
+    tmpUrlImg = [];
+    [].forEach.call(imagesList, el => {
+        el.innerHTML = ``
+    })
     addCharge.style.display = 'none';
     addCase.style.display = 'none';
     btnGlass.classList.add("_active-btn");
@@ -87,9 +104,8 @@ function show_glasse() {
 }
 
 
-function WrongPass(){
-	document.forms['login-form'].classList.add('wrong-pass');
+function WrongPass() {
+    document.forms['login-form'].classList.add('wrong-pass');
 
 
 }
-

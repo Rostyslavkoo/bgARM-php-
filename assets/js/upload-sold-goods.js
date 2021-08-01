@@ -1,26 +1,29 @@
-let inputAvaibleCod = document.getElementById('idAvaibleGood')
-let addAvaibleBtn = document.getElementById('addAvaibleBtn')
-let addAvaibleTxt = document.getElementById('addAvaibleTxt')
-let addAvaibleEmptyTxt = document.getElementById('addAvaibleEmptyTxt')
-let addAvaibleSpin = document.getElementById('addAvaibleSpin')
-let dataCheckAvaibleInfo = document.getElementById('dataCheckAvaibleInfo')
-let tmpCheckDataTable = document.getElementById('tmpCheckDataTable')
-let loaderAddAvaibleBtn = document.getElementById('loaderAddAvaibleBtn')
-let quantityNewAvaibleGood = document.getElementById('quantityNewAvaibleGood')
+let inputSoldCod = document.getElementById('idSoldGood')
+let addSoldBtn = document.getElementById('addSoldBtn')
+let addAvaibleTxtToSold = document.getElementById('addAvaibleTxtToSold')
+let addAvaibleEmptyTxtToSold = document.getElementById('addAvaibleEmptyTxtToSold')
+let addAvaibleSpinToSold = document.getElementById('addAvaibleSpinToSold')
+let dataCheckAvaibleInfoToSold = document.getElementById('dataCheckAvaibleInfoToSold')
+let tmpCheckDataTableToSold = document.getElementById('tmpCheckDataTableToSold')
+let loaderAddSoldBtn = document.getElementById('loaderAddSoldBtn')
+let setSoldGoodDate = document.getElementById('setSoldGoodDate')
+let lastPriceSoldGood = document.getElementById('lastPriceSoldGood')
+let quantitySoldGood = document.getElementById('quantitySoldGood')
+// let quantityNewAvaibleGood = document.getElementById('quantityNewAvaibleGood')
 
 
-inputAvaibleCod.onkeyup = function() {
+inputSoldCod.onkeyup = function() {
     // addAvaibleSpin.style.display = '';
-    addAvaibleTxt.style.display = 'none';
-    addAvaibleEmptyTxt.style.display = 'none'
-    if (inputAvaibleCod.value == ``) {
-        tmpCheckDataTable.style.setProperty("display", "none", "important")
+    addAvaibleTxtToSold.style.display = 'none';
+    addAvaibleEmptyTxtToSold.style.display = 'none'
+    if (inputSoldCod.value == ``) {
+        tmpCheckDataTableToSold.style.setProperty("display", "none", "important")
 
-        dataCheckAvaibleInfo.style.display = 'flex'
-        addAvaibleBtn.setAttribute("disabled", true);
-        addAvaibleTxt.style.display = '';
-        addAvaibleSpin.style.display = 'none';
-        addAvaibleEmptyTxt.style.display = 'none';
+        dataCheckAvaibleInfoToSold.style.display = 'flex'
+        addSoldBtn.setAttribute("disabled", true);
+        addAvaibleTxtToSold.style.display = '';
+        addAvaibleSpinToSold.style.display = 'none';
+        addAvaibleEmptyTxtToSold.style.display = 'none';
     } else {
 
         $.ajax({
@@ -29,30 +32,30 @@ inputAvaibleCod.onkeyup = function() {
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify({
-                avaibleGoodCod: inputAvaibleCod.value
+                avaibleGoodCod: inputSoldCod.value
 
             }),
             beforeSend: function() {
-                addAvaibleSpin.style.display = '';
-                dataCheckAvaibleInfo.style.display = 'flex'
-                tmpCheckDataTable.style.setProperty("display", "none", "important")
+                addAvaibleSpinToSold.style.display = '';
+                dataCheckAvaibleInfoToSold.style.display = 'flex'
+                tmpCheckDataTableToSold.style.setProperty("display", "none", "important")
 
             },
 
             success: function(response) {
                 if (response.avaible == false) {
                     console.log(response)
-                    addAvaibleEmptyTxt.style.display = ''
-                    addAvaibleSpin.style.display = 'none';
+                    addAvaibleEmptyTxtToSold.style.display = ''
+                    addAvaibleSpinToSold.style.display = 'none';
 
-                    tmpCheckDataTable.style.setProperty("display", "none", "important")
-                    dataCheckAvaibleInfo.style.display = 'flex'
+                    tmpCheckDataTableToSold.style.setProperty("display", "none", "important")
+                    dataCheckAvaibleInfoToSold.style.display = 'flex'
                 } else {
                     console.log(response)
-                    $("#tmpCheckDataTable td").remove();
+                    $("#tmpCheckDataTableToSold td").remove();
 
-                    tmpCheckDataTable.style.display = 'flex'
-                    dataCheckAvaibleInfo.style.display = 'none'
+                    tmpCheckDataTableToSold.style.display = 'flex'
+                    dataCheckAvaibleInfoToSold.style.display = 'none'
                     let len = response.length;
                     for (let i = 0; i < len; i++) {
                         let idGood = response[i].idGood;
@@ -78,11 +81,11 @@ inputAvaibleCod.onkeyup = function() {
                             '</td>';
 
 
-                        $("#tmpCheckDataTable ").append(tr_str);
+                        $("#tmpCheckDataTableToSold ").append(tr_str);
 
                     }
-                    addAvaibleSpin.style.display = 'none';
-                    addAvaibleBtn.removeAttribute('disabled')
+                    addAvaibleSpinToSold.style.display = 'none';
+                    addSoldBtn.removeAttribute('disabled')
 
                 }
             },
@@ -94,38 +97,48 @@ inputAvaibleCod.onkeyup = function() {
     }
 }
 
-const uploadAvaibleGood = () => {
-    if (quantityNewAvaibleGood.value == "" || quantityNewAvaibleGood.value == 0) {
+const uploadSoldGood = () => {
+    if (quantitySoldGood.value == "" || quantitySoldGood.value == 0) {
         let date = Date().slice(16, 21);
-
         createToast('Bigupcase', date, 'Вкажіть кількість товару')
         return false;
+    }  if (setSoldGoodDate.value == ``) {
+        let date = Date().slice(16, 21);
+        createToast('Bigupcase', date, 'Вкажіть дату проданого товару')
+        return false;
+    }if (lastPriceSoldGood.value == ``) {
+        let date = Date().slice(16, 21);
+        createToast('Bigupcase', date, 'Вкажіть ціну за яку продали товар')
+        return false;
     }
+    console.log(setSoldGoodDate.value)
     $.ajax({
-        url: 'php-content/upload-avaible-goods.php',
+        url: 'php-content/upload-sold-goods.php',
         type: 'post',
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify({
-            avaibleGoodCod: inputAvaibleCod.value,
-            quantityNewAvaibleGood: quantityNewAvaibleGood.value
+            soldGoodCod: inputSoldCod.value,
+            quantitySoldGood: quantitySoldGood.value,
+            setSoldGoodDate: setSoldGoodDate.value
+
         }),
         beforeSend: function() {
-            addAvaibleSpin.style.display = '';
-            dataCheckAvaibleInfo.style.display = 'flex'
-            tmpCheckDataTable.style.display = 'none'
-            addAvaibleEmptyTxt.style.display = 'none'
-            loaderAddAvaibleBtn.style.display = ''
-            addAvaibleBtn.setAttribute('disabled', true)
+            addAvaibleSpinToSold.style.display = '';
+            dataCheckAvaibleInfoToSold.style.display = 'flex'
+            tmpCheckDataTableToSold.style.display = 'none'
+            addAvaibleEmptyTxtToSold.style.display = 'none'
+            loaderAddSoldBtn.style.display = ''
+            addSoldBtn.setAttribute('disabled', true)
 
         },
         success: function(response) {
-            $("#tmpCheckDataTable td").remove();
-            addAvaibleBtn.removeAttribute('disabled')
-            loaderAddAvaibleBtn.style.setProperty("display", "none", "important")
+            $("#tmpCheckDataTableToSold td").remove();
+            addSoldBtn.removeAttribute('disabled')
+            loaderAddSoldBtn.style.setProperty("display", "none", "important")
 
-            tmpCheckDataTable.style.display = 'flex'
-            dataCheckAvaibleInfo.style.display = 'none'
+            tmpCheckDataTableToSold.style.display = 'flex'
+            dataCheckAvaibleInfoToSold.style.display = 'none'
             let len = response.length;
             for (let i = 0; i < len; i++) {
                 let idGood = response[i].idGood;
@@ -151,7 +164,7 @@ const uploadAvaibleGood = () => {
                     '</td>';
 
 
-                $("#tmpCheckDataTable ").append(tr_str);
+                $("#tmpCheckDataTableToSold ").append(tr_str);
 
             }
          let date = Date().slice(16, 21);
