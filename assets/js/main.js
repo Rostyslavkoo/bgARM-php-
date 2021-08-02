@@ -45,6 +45,11 @@ function show_cases() {
   } else {
     addCase.style.display = 'flex';
   }
+      imagesForUpload = []
+    tmpUrlImg = [];
+    [].forEach.call(imagesList, el => {
+        el.innerHTML = ``
+    })
     addCharge.style.display = 'none';
     addGlass.style.display = 'none';
     btnCase.classList.add("_active-btn");
@@ -60,6 +65,11 @@ function show_charge() {
   } else {
     addCharge.style.display = 'flex';
   }
+      imagesForUpload = []
+    tmpUrlImg = [];
+    [].forEach.call(imagesList, el => {
+        el.innerHTML = ``
+    })
     addGlass.style.display = 'none';
     addCase.style.display = 'none';
     btnCharge.classList.add("_active-btn");
@@ -76,6 +86,11 @@ function show_glasse() {
   } else {
     addGlass.style.display = 'flex';
   }
+      imagesForUpload = []
+    tmpUrlImg = [];
+    [].forEach.call(imagesList, el => {
+        el.innerHTML = ``
+    })
     addCharge.style.display = 'none';
     addCase.style.display = 'none';
     btnGlass.classList.add("_active-btn");

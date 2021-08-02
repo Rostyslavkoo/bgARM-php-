@@ -1,7 +1,7 @@
- let dragAndDrop = document.querySelector('.drag-and-drop-content')
- let dragAndDropCharge = document.querySelector('#drag-and-drop-charge')
+ const dragAndDrop = document.querySelectorAll('.drag-and-drop-content');
+ // let dragAndDropCharge = document.querySelector('#drag-and-drop-charge')
  let dragAndDropIco = document.querySelector('.bi-file-earmark-plus')
- let imagesList = document.querySelector('.drag-and-drop-img')
+ const imagesList = document.querySelectorAll('.drag-and-drop-img')
  let imagesListCharge = document.querySelector('#drag-and-drop-img-charge')
  let uploadNewGoodBtn = document.querySelector('#uploadNewCaseBtn')
  let uploadBtnCase = document.getElementById('uploadNewCaseBtn');
@@ -20,80 +20,56 @@
 
  let imagesForUpload = [];
  let tmpUrlImg = [];
- const types = ['image/jpeg', 'image/png', 'image/webp']
- dragAndDrop.addEventListener('dragenter', (e) => {
-     e.preventDefault();
-     dragAndDrop.classList.add('drag-and-drop-content__active')
- })
+ const types = ['image/jpeg', 'image/png', 'image/webp'];
 
- dragAndDrop.addEventListener('dragleave', (e) => {
-     e.preventDefault();
-     dragAndDrop.classList.remove('drag-and-drop-content__active')
- })
+ const dragEnter = function() {
+     this.classList.add('drag-and-drop-content__active')
 
- dragAndDrop.addEventListener('dragover', (e) => {
-     e.preventDefault();
- })
+ }
+ const dragLeave = function() {
+     this.classList.remove('drag-and-drop-content__active')
 
- dragAndDrop.addEventListener('drop', (e) => {
+ }
+ const dragOver = function(e) {
      e.preventDefault();
 
+ }
+ const dragLeavee = function() {
+     this.classList.remove('drag-and-drop-content__active')
+
+ }
+ const dragDrop = function(e) {
+     e.preventDefault();
      const files = e.dataTransfer.files
      for (let key in files) { // validate upload img
          if (!types.includes(files[key].type) || imagesForUpload.length > 0) {
              continue;
 
          }
-
          imagesForUpload.push(files[key]) // create trmporal img
-         let imgTempUrl = URL.createObjectURL(files[key])
+         let imgTempUrl = URL.createObjectURL(files[key]);
+         [].forEach.call(imagesList, el => {
+             el.innerHTML += `<img src="${imgTempUrl}" alt="">` // output img
 
+         })
+         this.classList.remove('drag-and-drop-content__active')
 
-         imagesList.innerHTML += `<img src="${imgTempUrl}" alt="">` // output img
          tmpUrlImg = [imgTempUrl] // upload img in massive
      }
-     // unlock upload
-     if (imagesForUpload.length > 0) {
-         uploadNewGoodBtn.removeAttribute('disabled')
-     }
- })
- dragAndDropCharge.addEventListener('dragenter', (e) => {
-     e.preventDefault();
-     dragAndDrop.classList.add('drag-and-drop-content__active')
- })
+ }
+ // unlock upload
+ if (imagesForUpload.length > 0) {
+     uploadNewGoodBtn.removeAttribute('disabled')
+ }
+ dragAndDrop.forEach((cell) => {
+     cell.addEventListener('dragover', dragOver);
+     cell.addEventListener('dragenter', dragEnter);
+     cell.addEventListener('dragleave', dragLeavee);
+     cell.addEventListener('drop', dragDrop);
 
- dragAndDropCharge.addEventListener('dragleave', (e) => {
-     e.preventDefault();
-     dragAndDrop.classList.remove('drag-and-drop-content__active')
  })
 
- dragAndDropCharge.addEventListener('dragover', (e) => {
-     e.preventDefault();
- })
 
- dragAndDropCharge.addEventListener('drop', (e) => {
-     e.preventDefault();
-
-     const files = e.dataTransfer.files
-     for (let key in files) { // validate upload img
-         if (!types.includes(files[key].type) || imagesForUpload.length > 0) {
-             continue;
-
-         }
-
-         imagesForUpload.push(files[key]) // create trmporal img
-         let imgTempUrl = URL.createObjectURL(files[key])
-
-
-         imagesListCharge.innerHTML += `<img src="${imgTempUrl}" alt="">` // output img
-         tmpUrlImg = [imgTempUrl] // upload img in massive
-     }
-     // unlock upload
-     if (imagesForUpload.length > 0) {
-         uploadNewGoodBtn.removeAttribute('disabled')
-         uploadBtn.removeAttribute('disabled')
-     }
- })
  // ulock upload btn
  lastPriceCase.onkeyup = function() {
      if (!lastPriceCase.value == ``) {
@@ -199,8 +175,12 @@
                  uploadDataOnTable()
                  $("#uploadNewCaseForm").trigger("reset");
                  imagesForUpload = []
-                 tmpUrlImg = []
-                 imagesList.innerHTML = ``
+
+                 tmpUrlImg = [];
+                 [].forEach.call(imagesList, el => {
+                     el.innerHTML = ``
+
+                 })
                  $('#loaderNewcaseBTn').css("display", "none")
                  let date = Date().slice(16, 21);
 
@@ -213,7 +193,7 @@
  // upload data on table
  function uploadDataOnTable(temp) {
 
-     let caseTypeGood = brandCase.value + ' ' + typeCase.value + ' ' + brandPhone.value;
+     let caseTypeGood = 'чохол'  +' '+ brandCase.value + ' ' + typeCase.value + ' ' + brandPhone.value;
      $('#avaibleGoodsTable').prepend('<tr>' +
          '<th>' + idNewCaseValue.value + '</th>' +
          '<td>' + caseTypeGood + '</td>' +
@@ -236,10 +216,13 @@
  }
 
  //  upload img by input
- const inputElementCase = document.getElementById("image");
- const inputElementCharge = document.getElementById("new_charge_img");
- inputElementCase.addEventListener("change", handleFiles, false);
- inputElementCharge.addEventListener("change", handleFilesCharge, false);
+
+ const inputElement = document.querySelectorAll(".inputImages");
+
+ [].forEach.call((inputElement), el => {
+     el.addEventListener("change", handleFiles, false);
+
+ })
 
  function handleFiles() {
      const fileList = this.files; /* now you can work with the file list */
@@ -250,8 +233,11 @@
          }
          imagesForUpload.push(fileList[key])
          var imgTempUrl = URL.createObjectURL(fileList[key])
-         console.log(imgTempUrl)
-         imagesList.innerHTML += `<img src="${imgTempUrl}" alt="">`
+         console.log(imgTempUrl);
+         [].forEach.call((imagesList), elList => {
+             elList.innerHTML += `<img src="${imgTempUrl}" alt="">`
+
+         })
          tmpUrlImg = [imgTempUrl]
      }
 

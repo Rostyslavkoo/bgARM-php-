@@ -119,10 +119,12 @@ uploadBtn.addEventListener('click', () => {
 
 
                 $("#uploadNewCaseForm").trigger("reset");
-                imagesForUpload = []
-                tmpUrlImg = []
-                imagesListCharge.innerHTML = ``
-                // $('#loaderNewcaseBTn').css("display", "none")
+        
+    imagesForUpload = []
+    tmpUrlImg = [];
+    [].forEach.call(imagesList, el => {
+        el.innerHTML = ``
+    })                // $('#loaderNewcaseBTn').css("display", "none")
                   let date = Date().slice(16, 21);
 
                 createToast('Bigupcase', date, 'Новий товар додано')
@@ -135,7 +137,7 @@ uploadBtn.addEventListener('click', () => {
 
 function uploadChargeOnTable(temp) {
 
-    let ChargeTypeGood = brandCharge.value + ' ' + connector.value + ' ' + typeCharge.value + ' ' + length.value + 'м';
+    let ChargeTypeGood = 'зарядка'  +' '+ brandCharge.value + ' ' + connector.value + ' ' + typeCharge.value + ' ' + length.value + 'м';
     $('#avaibleGoodsTable').prepend('<tr>' +
         '<th>' + idNewChargeValue.value + '</th>' +
         '<td>' + ChargeTypeGood + '</td>' +
