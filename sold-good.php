@@ -68,30 +68,63 @@
                         <th scope="col"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Фото товарy">Фото</span> </th>
                      </tr>
                   </thead>
-                  <tbody>
-                     <tr>
-                        <th scope="row">НФ-12431</th>
-                        <td class="main-cell">Iphone 7/8 Silicone Case</td>
-                        <td>Black</td>
-                        <td>10</td>
-                        <td>50</td>
-                        <td>150</td>
-                        <td>2020-</td>
-                        <td class="b-img-table"><i class="bi bi-image" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i></td>
-                        <div class="modal fade" id="staticBackdrop" aria-hidden="true">
-                           <div class="modal-dialog modal-dialog-centered modal-img-table">
-                              <div class="modal-content">
-                                 <div class="modal-body">
-                                    <picture>
-                                       <source srcset="assets/img/test-case.webp" type="image/webp">
-                                       <img src="assets/img/test-case.jpeg" class="img-fluid" alt="">
-                                    </picture>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </tr>
-                  </tbody>
+                 <?php
+                     require "connect.php";
+                     
+                     echo "<tbody id='avaibleGoodsTable'>";
+                     
+                     $query = "SELECT
+                     `id`,
+                     `type_good`,
+                     `good_content`,
+                     `color`,
+                     `cod`,
+                     `quantity`,
+                     `first_price`,
+                     `last_price`,
+                     `sold_date`,
+                     `id_photo`
+                     FROM
+                     `sold_goods`
+                     ORDER BY
+                     id
+                     DESC
+                     ";
+                     $i=0;
+                     
+                     //$numrows = mysqli_num_rows( $query);
+                     if ($result = mysqli_query($mysql, $query)) {
+                     
+                       while ($row = mysqli_fetch_assoc($result)) { 
+                           echo  '<tr>'.
+                           '<th scope="row">'.$row["cod"].'</th>'.
+                           '<td class="main-cell">'.$row["type_good"]. ' '.$row["good_content"].'</td>'.
+                           '<td>'.$row["color"].'</td>'.
+                           '<td>'.$row["quantity"].'</td>'.
+                           '<td>'.$row["first_price"].'</td>'.
+                           '<td>'.$row["last_price"].'</td>'.
+                           '<td class="main-cell">'.$row["sold_date"].'</td>'.
+                           '<td class=" b-img-table"><i class="bi bi-image" data-bs-toggle="modal" data-bs-target="#staticBackdrop'.$row["id"].'"></i></td>'.
+                           '<div class="modal fade" id="staticBackdrop'.$row["id"].'" aria-hidden="true">'.
+                           '<div class="modal-dialog modal-dialog-centered modal-img-table">'.
+                           '<div class="modal-content">'.
+                           '<div class="modal-body">'.
+                           '<img loading="lazy"src="uploads/'.$row["id_photo"].'" class="img-fluid" alt="">'.
+                           '</div>'.
+                           '</div>'.
+                           '</div>'.
+                           '</div>'.
+                           '</tr> ';
+                       }
+                     
+                     mysqli_free_result($result); // видалення
+                     }
+                     echo"</tbody>";
+                     
+                     
+                     mysqli_close($mysql);
+                     
+                     ?>
                </table>
             </div>
          </div>
@@ -107,7 +140,7 @@
                </div>
                <div class="modal-body">
                   <!-- add-new-goods-btn -->
-                  <form >
+                  <form id="soldGoodform">
                      <div class="row  justify-content-between align-items-center">
                         <div class="col col-lg-3 ">
                            <div class="form"> <input type="text" id="idSoldGood" name="idSoldGood" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="idSoldGood" class="form__label">Код товару</label> </div>
@@ -136,13 +169,13 @@
                         </table>
                      </div>
                      <div class="row modal_input justify-content-around ">
-                        <div class="col  col-lg-4 form "> <input type="datetime-local" id="setSoldGoodDate"class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="email" class="form__label">Дата продажу</label> </div>
+                        <div class="col  col-lg-4 form "> <input type="date" id="setSoldGoodDate"class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="email" class="form__label">Дата продажу</label> </div>
                         <div class="col col-lg-4 modal-input-block">
                            <div class="form"> <input type="text" id="lastPriceSoldGood" onKeyPress="onlyNumber()" name="lastPriceGood" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="lastPriceSoldGood" class="form__label px-3">Ціна товару(шт)</label> </div>
                         </div>
                      </div>
                      <div class="modal-footer ">
-                        <div class="number-input"> <button type="reset" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" min="1" max="999" id="quantitySoldGood"name="quantitySoldGood" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div>
+                        <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" min="1" max="999" id="quantitySoldGood"name="quantitySoldGood" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type='button'onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div>
                         <button type="button" id="addSoldBtn"class="btn btn-success"onclick="uploadSoldGood()"disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderAddSoldBtn" style="display: none;"></span>Додати до складу</button>
                      </div>
                   </form>

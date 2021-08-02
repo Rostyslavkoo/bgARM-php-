@@ -99,7 +99,7 @@
                      `last_price`,
                      `id_photo`
                      FROM
-                     `all_avaible_goods`
+                     `all_avaible_goods` WHERE `quantity` > 0
                      ORDER BY
                      id
                      DESC
@@ -112,7 +112,7 @@
                        while ($row = mysqli_fetch_assoc($result)) { 
                            echo  '<tr>'.
                            '<th scope="row">'.$row["cod"].'</th>'.
-                           '<td>'.$row["type_good"]. ' '.$row["good_content"].'</td>'.
+                           '<td class="main-cell">'.$row["type_good"]. ' '.$row["good_content"].'</td>'.
                            '<td>'.$row["color"].'</td>'.
                            '<td>'.$row["quantity"].'</td>'.
                            '<td>'.$row["first_price"].'</td>'.
@@ -319,4 +319,4 @@
       <script src="assets/js/upload-new-goods.js" charset="utf-8"></script>
       <script src="assets/js/toasts.js" charset="utf-8"></script>
    </body>
-</html>==
+</html>

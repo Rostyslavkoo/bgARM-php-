@@ -7383,7 +7383,7 @@ input[type=datetime-local] {
     -webkit-box-shadow: 0 0 5px #adb5bd;
     box-shadow: 0 0 5px #adb5bd;
     border: none !important;
-    border-radius: 2.5rem;
+    border-radius: 1.5rem;
     padding: 2rem
 }
 

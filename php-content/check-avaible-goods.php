@@ -17,6 +17,20 @@ if($count == 0 ) {
   echo json_encode(["avaible" => false]);
   die(); 
 }
+
+//  $checkAlredySoldGood = "SELECT `quantity` FROM `all_avaible_goods` WHERE `cod` = '$idNewGood'";
+// $resultCheckSold = mysqli_query($mysql, $checkAlredySoldGood);
+
+//    if (mysqli_num_rows($resultCheckSold) > 0) {
+//   // output data of each row
+//   while($row = mysqli_fetch_assoc($resultCheckSold)) {
+//     $checkQuantity = $row["quantity"];
+//   }
+// }
+
+// if (!$checkQuantity > 0 ) {
+//    echo json_encode(["avaibleQuantity" => false]);
+// }
   // echo json_encode(["avaible" => true]);
  $output = "SELECT * FROM `all_avaible_goods` WHERE `cod` = '$idNewGood'";
 
