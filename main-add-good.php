@@ -99,7 +99,7 @@
                      `last_price`,
                      `id_photo`
                      FROM
-                     `all_avaible_goods` WHERE `quantity` > 0
+                     `all_avaible_goods`
                      ORDER BY
                      id
                      DESC
@@ -112,7 +112,7 @@
                        while ($row = mysqli_fetch_assoc($result)) { 
                            echo  '<tr>'.
                            '<th scope="row">'.$row["cod"].'</th>'.
-                           '<td class="main-cell">'.$row["type_good"]. ' '.$row["good_content"].'</td>'.
+                           '<td>'.$row["good_content"].'</td>'.
                            '<td>'.$row["color"].'</td>'.
                            '<td>'.$row["quantity"].'</td>'.
                            '<td>'.$row["first_price"].'</td>'.
@@ -272,7 +272,6 @@
                         </div>
                      </div>
                   </form>
-                  <form id="uploadNewGlassForm">
                   <div class="row  add_glasses">
                      <div class="col ">
                         <div class="form"> <input type="text" id="idNewGlass" name="idNewGlass" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="idNewGlass" class="form__label">Код товару</label> </div>
@@ -298,9 +297,7 @@
                            <div class="form w-75"> <input onKeyPress="onlyNumber()" type="text" id="lastPriceGlass" name="lastPriceGlass" class="form__input form-control "style="margin-top: 2px;" required autocomplete="off" placeholder=" "> <label for="lastPriceGlass" class="form__label">Ціна продажу(шт)</label> </div>
                            <button type="submit" id="uploadNewGlassBtn"class="btn btn-success" disabled ><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderNewGlassBtn" style="display: none;"></span>Додати до складу</button>
                         </div>
-                    </div>
                      </div>
-                 </form>
                   </div>
                </div>
             </div>
@@ -319,4 +316,4 @@
       <script src="assets/js/upload-new-goods.js" charset="utf-8"></script>
       <script src="assets/js/toasts.js" charset="utf-8"></script>
    </body>
-</html>
+</html>==
