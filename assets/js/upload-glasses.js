@@ -17,7 +17,8 @@ lastPriceGlass.onkeyup = function() {
     }
 }
 
-uploadNewGlassBtn.addEventListener('click', () => {
+uploadNewGlassBtn.addEventListener('click', (e) => {
+            e.preventDefault();
     if (idNewGlassValue.value == "") {
         let date = Date().slice(16, 21);
 

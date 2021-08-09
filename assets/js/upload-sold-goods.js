@@ -12,7 +12,9 @@ let quantitySoldGood = document.getElementById('quantitySoldGood')
 let soldGoodform = document.getElementById('quantitySoldGood')
 // let quantityNewAvaibleGood = document.getElementById('quantityNewAvaibleGood')
 
-
+ addSoldBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+    })
 inputSoldCod.onkeyup = function() {
     // addAvaibleSpin.style.display = '';
     addAvaibleTxtToSold.style.display = 'none';
@@ -61,6 +63,7 @@ inputSoldCod.onkeyup = function() {
 
                     tmpCheckDataTableToSold.style.display = 'flex'
                     dataCheckAvaibleInfoToSold.style.display = 'none'
+
                     let len = response.length;
                     for (let i = 0; i < len; i++) {
                         let idGood = response[i].idGood;
@@ -93,6 +96,7 @@ inputSoldCod.onkeyup = function() {
                     addSoldBtn.removeAttribute('disabled')
 
                 }
+                 tool_tip(); 
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);
@@ -159,7 +163,7 @@ const uploadSoldGood = () => {
                 dataCheckAvaibleInfoToSold.style.display = 'none'
                 $("#soldGoodform").trigger("reset");
                 $("#tmpCheckDataTableToSold td").remove();
-                tmpCheckDataTableToSold.style.display = 'none'
+                                    tmpCheckDataTableToSold.style.setProperty("display", "none", "important")
                 dataCheckAvaibleInfoToSold.style.display = 'flex'
                 addAvaibleSpinToSold.style.display = 'none';
                 dataCheckAvaibleInfoToSold.style.display = 'flex'
@@ -211,7 +215,8 @@ const uploadSoldGood = () => {
                     $("#avaibleGoodsTable ").append(tr_str);
                             $("#soldGoodform").trigger("reset");
                 $("#tmpCheckDataTableToSold td").remove();
-                tmpCheckDataTableToSold.style.display = 'none'
+                                    tmpCheckDataTableToSold.style.setProperty("display", "none", "important")
+
                 dataCheckAvaibleInfoToSold.style.display = 'flex'
                 addAvaibleSpinToSold.style.display = 'none';
                 dataCheckAvaibleInfoToSold.style.display = 'flex'

@@ -81,7 +81,12 @@
 
  }
  //  upload cases
+
+ uploadBtnCase.addEventListener("click", function(e) {
+        e.preventDefault();
+    })
  const uploadImg = () => {
+   
      // validate inputs
      if (idNewCase.value == "") {
          let date = Date().slice(16, 21);

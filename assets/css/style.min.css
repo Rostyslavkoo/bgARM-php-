@@ -7084,7 +7084,7 @@ p {
 .c-table-add-avaible .table .c-img-table {
     min-width: 3rem;
     min-height: 3rem;
-    max-height: 3rem;
+    /*max-height: 3rem;*/
     max-width: 3rem;
     padding: 0;
     display: block;
@@ -7530,7 +7530,7 @@ a {
     display: none
 }
 
-.wrong-pass a {
+.wrong-pass p {
     color: #e35d6a;
     margin: 0;
     padding: 0;
@@ -7539,7 +7539,7 @@ a {
     display: block
 }
 
-.wrong-pass a:hover {
+.wrong-pass p:hover {
     color: #e35d6a
 }
 
@@ -13251,7 +13251,9 @@ a {
 
     #tmpCheckDataTable td,
   
-    #tmpCheckDataTable{
+    #tmpCheckDataTable,
+    #tmpCheckDataTableToSold,
+    #tmpCheckDataTableToSold td{
         display: block !important;
         text-align: center;
         width: auto;
@@ -13695,4 +13697,7 @@ a {
         padding: 0;
         margin: 0
     }
+}
+.tooltip {
+    z-index: 1000000!important; 
 }

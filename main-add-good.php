@@ -1,3 +1,10 @@
+<?php 
+session_start();
+if(!$_SESSION['user']){
+    header('Location: index.php');
+
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -25,7 +32,8 @@
       <meta name="theme-color" content="#ffffff">
    </head>
    <body>
-   
+     
+
       <div id="toast-container" class="toast-container position-fixed top-0 start-0 p-1" style="z-index: 1100;"> </div>
       <!-- <div class="toast" id="avaibleGoodToats" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; z-index: 100;">
          <div class="toast-header">
@@ -52,7 +60,7 @@
                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <li><a class="dropdown-item" href="main-add-good.php">Наявні товари</a></li>
                         <li><a class="dropdown-item" href="sold-good.php">Проданий товар</a></li>
-                        <li><a class="dropdown-item" href="index.php">Вийти</a></li>
+                        <li><a class="dropdown-item" href="php-content/logout.php">Вийти</a></li>
                      </ul>
                   </div>
                </div>
@@ -186,7 +194,7 @@
                   </div>
                   <div class="modal-footer ">
                      <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" id="quantityNewAvaibleGood"min="1" max="999" name="quantityAvaibleGood" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button"onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div>
-                     <button id="addAvaibleBtn"type="button" class="btn btn-success upload-newgood-btn" onclick="uploadAvaibleGood()"disabled >  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderAddAvaibleBtn" style="display: none;"></span>
+                     <button id="addAvaibleBtn"type="submit" class="btn btn-success upload-newgood-btn" onclick="uploadAvaibleGood()"disabled >  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderAddAvaibleBtn" style="display: none;"></span>
                      Додати до складу</button>
                   </div>
                </form>
@@ -235,7 +243,7 @@
                         <div class="modal-footer">
                            <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input id="quantityNewCase"class="quantity" min="1" max="999" name="quantityNewCase" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button"onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"><i class="bi bi-plus"></i> </button> </div>
                            <div class="form w-75"> <input type="text" onKeyPress="onlyNumber()" id="lastPriceCase" name="lastPriceCase" class="form__input form-control "style="margin-top: 2px;" required autocomplete="off" placeholder=" "> <label for="lastPriceCase" class="form__label">Ціна продажу(шт)</label> </div>
-                           <button id="uploadNewCaseBtn"type="button" class="btn btn-success upload-newgood-btn" onclick="uploadImg()"disabled >  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderNewcaseBTn" style="display: none;"></span>
+                           <button id="uploadNewCaseBtn"type="submit" class="btn btn-success upload-newgood-btn"  onclick="uploadImg()"disabled >  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderNewcaseBTn" style="display: none;"></span>
                            Додати до складу</button>
                         </div>
                      </div>
@@ -268,7 +276,7 @@
                         <div class="modal-footer">
                            <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input id="quantityNewCharge"class="quantity" min="1" max="999" name="quantity" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div>
                            <div class="form w-75"> <input type="text" id="lastPriceCharge" name="lastPriceCharge" class="form__input form-control "style="margin-top: 2px;" onKeyPress="onlyNumber()" required autocomplete="off" placeholder=" "> <label for="lastPriceCharge" class="form__label">Ціна продажу(шт)</label> </div>
-                           <button type="button" class="btn btn-success" disabled id="uploadNewChargesBtn"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderNewChargeBtn" style="display: none;"></span>Додати до складу</button>
+                           <button type="submit" class="btn btn-success" disabled id="uploadNewChargesBtn"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderNewChargeBtn" style="display: none;"></span>Додати до складу</button>
                         </div>
                      </div>
                   </form>
@@ -310,6 +318,8 @@
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
       <script src="assets/js/main.js" charset="utf-8"></script>
       <script src="assets/js/search-table.js" charset="utf-8"></script>
       <script src="assets/js/drag-and-drop.js" charset="utf-8"></script>
@@ -318,5 +328,12 @@
       <script src="assets/js/validate-input.js" charset="utf-8"></script>
       <script src="assets/js/upload-new-goods.js" charset="utf-8"></script>
       <script src="assets/js/toasts.js" charset="utf-8"></script>
+ <?php 
+ // if
+ //      echo '<script>
+ //      let date = Date().slice(16, 21);
+ //      createToast("Bigupcase", date,"'.$_SESSION['message'].' ")
+ //   </script>'
+      ?>
    </body>
 </html>

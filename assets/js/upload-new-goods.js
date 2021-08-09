@@ -8,8 +8,12 @@ let tmpCheckDataTable = document.getElementById('tmpCheckDataTable')
 let loaderAddAvaibleBtn = document.getElementById('loaderAddAvaibleBtn')
 let quantityNewAvaibleGood = document.getElementById('quantityNewAvaibleGood')
 
+function tool_tip() {
+     $('[data-bs-toggle="tooltip"]').tooltip()
+}
 
-inputAvaibleCod.onkeyup = function() {
+inputAvaibleCod.onkeyup = function(e) {
+    e.preventDefault();
     // addAvaibleSpin.style.display = '';
     addAvaibleTxt.style.display = 'none';
     addAvaibleEmptyTxt.style.display = 'none'
@@ -48,6 +52,7 @@ inputAvaibleCod.onkeyup = function() {
                     tmpCheckDataTable.style.setProperty("display", "none", "important")
                     dataCheckAvaibleInfo.style.display = 'flex'
                 } else {
+
                     console.log(response)
                     $("#tmpCheckDataTable td").remove();
 
@@ -64,6 +69,7 @@ inputAvaibleCod.onkeyup = function() {
                         let first_price = response[i].first_price;
                         let last_price = response[i].last_price;
                         let id_photo = response[i].id_photo;
+
                         var tr_str =
 
                             '<td scope="row"><span data-bs-toggle="tooltip" data-bs-placement="top" title="Код товару">' + cod + '</span></td>' +
@@ -85,6 +91,7 @@ inputAvaibleCod.onkeyup = function() {
                     addAvaibleBtn.removeAttribute('disabled')
 
                 }
+ tool_tip(); 
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);
@@ -93,6 +100,7 @@ inputAvaibleCod.onkeyup = function() {
 
     }
 }
+
 const uploadAvaibleGood = () => {
     if (quantityNewAvaibleGood.value == "" || quantityNewAvaibleGood.value == 0) {
         let date = Date().slice(16, 21);
@@ -138,8 +146,8 @@ const uploadAvaibleGood = () => {
                 let id_photo = response[i].id_photo;
                 var tr_str =
 
-                    '<td scope="row"><span data-bs-toggle="tooltip" data-bs-placement="top" title="Код товару">' + cod + '</span></td>' +
-                    '<td scope="row" class="text-center"style="min-width:50%;"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Тип та назва товару">' + good_content + '</span> </td>' +
+                    '<td scope="row"><span z-index="9999" data-bs-toggle="tooltip" data-bs-placement="top" title="Код товару">' + cod + '</span></td>' +
+                    '<td scope="row" class="text-center"style="min-width:50%;"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Тип та назва товару">'+ type_good+''+ good_content + '</span> </td>' +
                     '<td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Колір">' + color + '</span> </td>' +
                     '<td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Кількість">' + quantity + 'шт</span> </td>' +
                     '<td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Початкова ціна">' + first_price + '</span> </td>' +
@@ -153,6 +161,7 @@ const uploadAvaibleGood = () => {
                 $("#tmpCheckDataTable ").append(tr_str);
 
             }
+
          let date = Date().slice(16, 21);
 
             createToast('Bigupcase', date, 'Кількість товару змінена, оновіть сторінку')
@@ -162,3 +171,6 @@ const uploadAvaibleGood = () => {
         }
     })
 }
+$(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    })

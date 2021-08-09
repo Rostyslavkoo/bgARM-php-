@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<?php
+session_start();
+if(@$_SESSION['user']){
+    header('Location: main-add-good.php');
+
+}
+?>
 <html lang="en">
 
 <head>
@@ -26,19 +32,27 @@
 </head>
 
 <body>
-
-    <form action="main-add-good.php" method="GET" name="login-form">
+<div id="toast-container" class="toast-container position-fixed top-0 start-0 p-1" style="z-index: 1100;"> </div>
+    <form action="php-content/autorise.php" method="POST" name="login-form">
         <div class="container d-grid align-items-center" style="height: 100vh;">
             <div class="row align-items-center  justify-content-center w-auto">
                 <div class="login-input col col-lg-3">
-                    <div class="form p-0 m-0"> <input id="AccesCod" type="password" class="form__input form-control " required autocomplete="off" placeholder=" " autofocus> <label for="AccesCod" class="form__label ">Код доступу</label> </div>
-                    <div class="text-left position-absolute"> <a href="" id="wrong-pass-text">Неправильний пароль</a> </div>
+                    <div class="form p-0 m-0"> <input id="AccesCod" type="password" class="form__input form-control "name='autoriseCod' required autocomplete="off" placeholder=" " autofocus> <label for="AccesCod" class="form__label ">Код доступу</label> </div>
+
+<div class="text-left position-absolute"> <p id="wrong-pass-text"></p></div>
+
+
                 </div>
-                <div class="w-auto"> <button class="btn btn-gray-700 p-2 mb-1" type="submit" onclick="WrongPass()">Вхід</button> </div>
+                <div class="w-auto"> <button s class="btn btn-gray-700 p-2 mb-1 autoriseBtn" type="submit" ><span class="spinner-border spinner-border-sm mx-1" role="status" aria-hidden="true" id="loaderAutoriseBtn" style="display:none"></span>Вхід</button> </div>
             </div>
         </div>
     </form>
-    <script src="assets/js/main.min.js" charset="utf-8"></script>
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script src="assets/js/autorise.js" charset="utf-8"></script>
+      <script src="assets/js/toasts.js" charset="utf-8"></script>
+
+
 </body>
 
 </html>

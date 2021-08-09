@@ -1,3 +1,10 @@
+<?php 
+session_start();
+
+if(!$_SESSION['user']){
+    header('Location: index.php');
+
+}?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -25,7 +32,7 @@
       <meta name="msapplication-TileImage" content="assets/img/favicon/ms-icon-144x144.webp">
       <meta name="theme-color" content="#ffffff">
    </head>
-   <body>
+      <body>
           <div id="toast-container" class="toast-container position-fixed top-0 start-0 p-1" style="z-index: 1100;"> </div>
       <div class="container-fluid mt-5">
          <header>
@@ -50,12 +57,12 @@
          </header>
          <div class="container mt-5 mb-2 search">
             <div class="row d-flex justify-content-end">
-               <div class="col-lg-3 d-flex search"> <input type="text" class="form-control" placeholder="Пошук" autofocus> <button type="button" class=" mx-1 btn btn-secondary report-btn" data-bs-toggle="modal" data-bs-target="#setPeriodTimeToReport"> Звіт </button> </div>
+               <div class="col-lg-3 d-flex search"> <input type="text" class="form-control" id="search"  placeholder="Пошук" autofocus onkeyup="tableSearch()"> <button type="button" class=" mx-1 btn btn-secondary report-btn" data-bs-toggle="modal" data-bs-target="#setPeriodTimeToReport"> Звіт </button> </div>
             </div>
          </div>
          <div class="container ">
             <div class="table-scrollable ">
-               <table class="table table-hover text-center">
+               <table class="table table-hover text-center" id="info-table">
                   <thead>
                      <tr>
                         <th scope="col"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Код товару">№</span> </th>
@@ -176,7 +183,7 @@
                      </div>
                      <div class="modal-footer ">
                         <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" min="1" max="999" id="quantitySoldGood"name="quantitySoldGood" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type='button'onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div>
-                        <button type="button" id="addSoldBtn"class="btn btn-success"onclick="uploadSoldGood()"disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderAddSoldBtn" style="display: none;"></span>Додати до складу</button>
+                        <button type="submit" id="addSoldBtn"class="btn btn-success"onclick="uploadSoldGood()"disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderAddSoldBtn" style="display: none;"></span>Додати до складу</button>
                      </div>
                   </form>
                </div>
@@ -193,8 +200,8 @@
                   </div>
                   <div class="modal-body  ">
                      <div class="container d-flex justify-content-between c-time-perioud">
-                        <div class="col col-lg-5 form "> <input type="datetime-local" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="email" class="form__label">Початкова дата</label> </div>
-                        <div class="col col col-lg-5 form"> <input type="datetime-local" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="email" class="form__label">Кінцева дата</label> </div>
+                        <div class="col col-lg-5 form "> <input type="date" class="form__input form-control" name="firstSearchDate" required autocomplete="off" placeholder=" "> <label for="email" class="form__label">Початкова дата</label> </div>
+                        <div class="col col col-lg-5 form"> <input type="date" class="form__input form-control"name="secondSearchDate" required autocomplete="off" placeholder=" "> <label for="email" class="form__label">Кінцева дата</label> </div>
                      </div>
                      <div class="modal-footer"> <button type="submit" class="btn btn-gray-700">Створити звіт</button> </div>
                   </div>
@@ -211,5 +218,7 @@
       <script src="assets/js/toasts.js" charset="utf-8"></script>
       <script src="assets/js/validate-input.js" charset="utf-8"></script>
       <script src="assets/js/upload-sold-goods.js" charset="utf-8"></script>
+            <script src="assets/js/search-table.js" charset="utf-8"></script>
+
    </body>
 </html>

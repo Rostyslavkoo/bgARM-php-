@@ -21,58 +21,59 @@ lastPriceCharge.onkeyup = function() {
     }
 }
 
-uploadBtn.addEventListener('click', () => {
+uploadBtn.addEventListener('click', (e) => {
+    e.preventDefault();
     if (idNewChargeValue.value == "") {
-         let date = Date().slice(16, 21);
+        let date = Date().slice(16, 21);
 
         createToast('Bigupcase', date, 'Введіть код товару')
         return false;
     } else if (typeCharge.value == "") {
-         let date = Date().slice(16, 21);
+        let date = Date().slice(16, 21);
 
         createToast('Bigupcase', date, 'Введіть тип зарядки')
         return false;
     } else if (brandCharge.value == "") {
 
 
-              let date = Date().slice(16, 21);
+        let date = Date().slice(16, 21);
 
         createToast('Bigupcase', date, 'Введіть бренд зарядки')
         return false;
     } else if (connector.value == "") {
-         let date = Date().slice(16, 21);
+        let date = Date().slice(16, 21);
 
         createToast('Bigupcase', date, 'Введіть роз\'єм зарядки')
         return false;
     } else if (colorCharge.value == "") {
-            let date = Date().slice(16, 21);
+        let date = Date().slice(16, 21);
 
         createToast('Bigupcase', date, 'Введіть колір зарядки')
         return false;
     } else if (length.value == "") {
-              let date = Date().slice(16, 21);
+        let date = Date().slice(16, 21);
 
         createToast('Bigupcase', date, 'Введіть довжину зарядки')
         return false;
     } else if (firstPriceCharge.value == "") {
-          let date = Date().slice(16, 21);
+        let date = Date().slice(16, 21);
 
         createToast('Bigupcase', date, 'Введіть початкову ціну зарядки')
         return false;
 
     } else if (quantityNewCharge.value == "" || quantityNewCharge.value == 0) {
-         let date = Date().slice(16, 21);
+        let date = Date().slice(16, 21);
 
         createToast('Bigupcase', date, 'Вкажіть кількість зарядкок')
         return false;
     } else if (lastPriceCharge.value == "") {
-         let date = Date().slice(16, 21);
+        let date = Date().slice(16, 21);
 
         createToast('Bigupcase', date, 'Вкажіть ціну продажу зарядки')
         return false;
     }
     if (!imagesForUpload.length > 0) {
-         let date = Date().slice(16, 21);
+        let date = Date().slice(16, 21);
 
         createToast('Bigupcase', date, 'Додайте зображення до товару')
         return false
@@ -107,7 +108,7 @@ uploadBtn.addEventListener('click', () => {
         success: function(data) {
             if (data.avaible == true) {
                 loaderNewChargeBtn.style.display = 'none';
-                         let date = Date().slice(16, 21);
+                let date = Date().slice(16, 21);
 
                 createToast('Bigupcase', date, 'Даний товар уже існує на складі')
                 uploadBtn.removeAttribute('disabled')
@@ -119,13 +120,13 @@ uploadBtn.addEventListener('click', () => {
 
 
                 $("#uploadNewCaseForm").trigger("reset");
-        
-    imagesForUpload = []
-    tmpUrlImg = [];
-    [].forEach.call(imagesList, el => {
-        el.innerHTML = ``
-    })                // $('#loaderNewcaseBTn').css("display", "none")
-                  let date = Date().slice(16, 21);
+
+                imagesForUpload = []
+                tmpUrlImg = [];
+                [].forEach.call(imagesList, el => {
+                    el.innerHTML = ``
+                }) // $('#loaderNewcaseBTn').css("display", "none")
+                let date = Date().slice(16, 21);
 
                 createToast('Bigupcase', date, 'Новий товар додано')
                 $("#uploadNewChargeForm").trigger("reset");
@@ -137,7 +138,7 @@ uploadBtn.addEventListener('click', () => {
 
 function uploadChargeOnTable(temp) {
 
-    let ChargeTypeGood = 'зарядка'  +' '+ brandCharge.value + ' ' + connector.value + ' ' + typeCharge.value + ' ' + length.value + 'м';
+    let ChargeTypeGood = 'зарядка' + ' ' + brandCharge.value + ' ' + connector.value + ' ' + typeCharge.value + ' ' + length.value + 'м';
     $('#avaibleGoodsTable').prepend('<tr>' +
         '<th>' + idNewChargeValue.value + '</th>' +
         '<td>' + ChargeTypeGood + '</td>' +
