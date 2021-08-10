@@ -7258,6 +7258,11 @@ input[type=number]::-webkit-outer-spin-button {
     height: 3rem;
     margin: 1.5rem 0;
     padding: 0
+}.form-desc {
+    position: relative;
+    height:7.5rem;
+    margin: 1.5rem 0;
+    padding: 0
 }
 
 .form__input {
@@ -7272,13 +7277,20 @@ input[type=number]::-webkit-outer-spin-button {
     font-size: .8rem;
     padding: 1rem 1rem .5rem 1rem
 }
-
+#describeAnotherGood{
+    border-color: #adb5bd;
+    resize: none;
+    outline: none;
+     box-shadow: 1px 1px 4px #e8ecf5;
+         height:7.5rem;
+}
 .form__input:hover {
     border-color: #adb5bd
 }
 
 .form__input:focus {
-    border-color: #adb5bd
+    border-color: #adb5bd;
+
 }
 
 .form__label {
@@ -7347,11 +7359,9 @@ input[type=datetime-local] {
     height: 2.8rem
 }
 
-.add_charges {
-    display: none
-}
 
-.add_glasses {
+
+.add_glasses , .add_another,.add_charges {
     display: none
 }
 
@@ -7397,7 +7407,9 @@ input[type=datetime-local] {
 
 .add_cases,
 .add_charges,
-.add_glasses {
+.add_glasses ,
+.add_another
+{
     margin: 1rem 0
 }
 
@@ -13400,6 +13412,7 @@ a {
 
 @media (max-width:575.98px) {
     .table-responsive-sm {
+
         overflow-x: auto;
         -webkit-overflow-scrolling: touch
     }
@@ -13430,7 +13443,7 @@ a {
     }
 }
 
-@media (max-width:411px) {
+@media (max-width:611px) {
     .number-input input[type=number] {
         font-size: 1rem
     }

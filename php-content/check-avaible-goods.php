@@ -7,6 +7,7 @@ $return_arr = array();
 $request = file_get_contents("php://input"); // gets the raw data
 $params = json_decode($request,true); // true for return as array
 $idNewGood = $params['avaibleGoodCod'];
+$idNewGood = htmlspecialchars($idNewGood,ENT_QUOTES);
 
               require"../connect.php";
 

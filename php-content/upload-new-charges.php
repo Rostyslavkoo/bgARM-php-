@@ -1,24 +1,31 @@
 <?php
 
 $idNewCharge = $_POST['idNewChargeValue'];
-    $idNewCharge = htmlspecialchars($idNewCharge);
+    $idNewCharge = htmlspecialchars($idNewCharge,ENT_QUOTES);
 
 $typeCharge = $_POST['typeCharge'];
-    $idNewCharge = htmlspecialchars($idNewCharge);
+    $idNewCharge = htmlspecialchars($idNewCharge,ENT_QUOTES);
     
 $brandCharge = $_POST['brandCharge'];
+    $brandCharge = htmlspecialchars($brandCharge,ENT_QUOTES);
 
 $connector = $_POST['connector'];
+    $connector = htmlspecialchars($connector,ENT_QUOTES);
 
 $length = $_POST['length'] .'м';
+    $length = htmlspecialchars($length,ENT_QUOTES);
 
 $colorCharge = $_POST['colorCharge'];
+    $colorCharge = htmlspecialchars($colorCharge,ENT_QUOTES);
 
 $firstPriceCharge = $_POST['firstPriceCharge'];
+    $firstPriceCharge = htmlspecialchars($firstPriceCharge,ENT_QUOTES);
 
 $quantityNewCharge = $_POST['quantityNewCharge'];
+    $quantityNewCharge = htmlspecialchars($quantityNewCharge,ENT_QUOTES);
 
 $lastPriceCharge = $_POST['lastPriceCharge'];
+    $lastPriceCharge = htmlspecialchars($lastPriceCharge,ENT_QUOTES);
 
 $images = $_FILES;
 
@@ -97,8 +104,47 @@ if( $count > 0 ) {
  $mysql->query("INSERT INTO `all_avaible_goods`(`type_good`,`good_content`,`color`,`cod`,`quantity`,`first_price`,`last_price`,`id_photo`)
     VALUES('зарядка','$brandCharge $connector $typeCharge $length ','$colorCharge','$idNewCharge','$quantityNewCharge','$firstPriceCharge','$lastPriceCharge','$fileName')");
 
+ $output = "SELECT * FROM `all_avaible_goods` WHERE `cod` = '$idNewCharge'";
+
+$result = mysqli_query($mysql, $output);
+
+if (mysqli_num_rows($result) > 0) {
+  // output data of each row
+  while($row = mysqli_fetch_assoc($result)) {
+    $idGood = $row["id"];
+    $type_good = $row["type_good"];
+    $good_content = $row["good_content"];
+    $color = $row["color"];
+    $cod = $row["cod"];
+    $quantity = $row["quantity"];
+    $first_price = $row["first_price"];
+    $last_price = $row["last_price"];
+    $id_photo = $row["id_photo"];
+    $return_arr[] = array("idGood" => "$idGood",
+                    "type_good" => "$type_good",
+                    "good_content" => "$good_content",
+                    "color" => "$color",
+                    "cod" => "$cod",
+                    "cod" => "$cod",
+                    "cod" => "$cod",
+                    "quantity" => "$quantity",
+                    "first_price" => "$first_price",
+                    "last_price" => "$last_price",
+                    "id_photo" => "$id_photo",
+                 );
+    }
+    if($return_arr){
+    echo json_encode($return_arr,JSON_UNESCAPED_UNICODE);
+
 }
-}echo json_encode(["status" => true]);
+}
+else{
+      echo json_encode(["status" => false]);
+
+}
+}
+}
+
 
 
 

@@ -73,7 +73,7 @@ inputAvaibleCod.onkeyup = function(e) {
                         var tr_str =
 
                             '<td scope="row"><span data-bs-toggle="tooltip" data-bs-placement="top" title="Код товару">' + cod + '</span></td>' +
-                            '<td scope="row" class="text-center"style="min-width:20rem;"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Тип та назва товару">' + good_content + '</span> </td>' +
+                            '<td scope="row" class="text-center"style="min-width:30%;"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Тип та назва товару">' + good_content + '</span> </td>' +
                             '<td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Колір">' + color + '</span> </td>' +
                             '<td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Кількість">' + quantity + 'шт</span> </td>' +
                             '<td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Початкова ціна">' + first_price + '</span> </td>' +
@@ -147,7 +147,7 @@ const uploadAvaibleGood = () => {
                 var tr_str =
 
                     '<td scope="row"><span z-index="9999" data-bs-toggle="tooltip" data-bs-placement="top" title="Код товару">' + cod + '</span></td>' +
-                    '<td scope="row" class="text-center"style="min-width:50%;"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Тип та назва товару">'+ type_good+''+ good_content + '</span> </td>' +
+                    '<td scope="row" class="text-center"style="min-width:30%;"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Тип та назва товару">'+ good_content + '</span> </td>' +
                     '<td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Колір">' + color + '</span> </td>' +
                     '<td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Кількість">' + quantity + 'шт</span> </td>' +
                     '<td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Початкова ціна">' + first_price + '</span> </td>' +

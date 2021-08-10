@@ -1,10 +1,17 @@
 <?php 
 $request = file_get_contents("php://input"); // gets the raw data
 $params = json_decode($request,true); // true for return as array
-$soldGoodCod = $params['soldGoodCod'];
+$soldGoodCod = $params['soldGoodCod'];    
+$soldGoodCod = htmlspecialchars($soldGoodCod,ENT_QUOTES);
+
 $quantitySoldGood = $params['quantitySoldGood'];
+$quantitySoldGood = htmlspecialchars($quantitySoldGood,ENT_QUOTES);
+
 $SoldGoodDate = $params['SoldGoodDate'];
+$SoldGoodDate = htmlspecialchars($SoldGoodDate,ENT_QUOTES);
+
 $lastPriceSoldGood = $params['lastPriceSoldGood'];
+$lastPriceSoldGood = htmlspecialchars($lastPriceSoldGood,ENT_QUOTES);
 
    require"../connect.php";
   // $mysql->query("UPDATE `all_avaible_goods` SET `quantity` = `quantity` + '$quantityNewAvaibleGood' WHERE `cod` = '$soldGoodCod' "); 

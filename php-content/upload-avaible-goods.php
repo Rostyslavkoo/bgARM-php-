@@ -2,7 +2,10 @@
 $request = file_get_contents("php://input"); // gets the raw data
 $params = json_decode($request,true); // true for return as array
 $idNewGood = $params['avaibleGoodCod'];
+$idNewGood = htmlspecialchars($idNewGood,ENT_QUOTES);
+
 $quantityNewAvaibleGood = $params['quantityNewAvaibleGood'];
+$quantityNewAvaibleGood = htmlspecialchars($quantityNewAvaibleGood,ENT_QUOTES);
 
    require"../connect.php";
 
@@ -24,14 +27,6 @@ if (mysqli_num_rows($result) > 0) {
   	$first_price = $row["first_price"];
   	$last_price = $row["last_price"];
   	$id_photo = $row["id_photo"];
-    // echo 
-    // '<br>id:' .$idGood.
-    // '<br>type_good:' .$type_good.
-    // '<br>good_content: ' .$good_content.
-    // '<br>color:' .$color.
-    // '<br>quantity:' .$quantity.
-    // '<br>first_price:' .$first_price.
-    // '<br>id_photo:' .$id_photo;
     $return_arr[] = array("idGood" => "$idGood",
                     "type_good" => "$type_good",
                     "good_content" => "$good_content",

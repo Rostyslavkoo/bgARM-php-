@@ -215,6 +215,7 @@ if(!$_SESSION['user']){
                   <div class="col"> <button type="button" onclick="show_cases()" class="btn btn-gray-700 _active-btn" id="btnAddCase"> <i class="bi bi-list"></i> Чохли </button> </div>
                   <div class="col"> <button type="button" onclick="show_charge()" class="btn btn-gray-700 " id="btnAddCharge"> <i class="bi bi-list"></i> Зарядки </button> </div>
                   <div class="col "> <button type="button" onclick="show_glasse()" class="btn btn-gray-700 " id="btnAddGlass"> <i class="bi bi-list"></i> Скло </button> </div>
+                  <div class="col "> <button type="button" onclick="show_another()" class="btn btn-gray-700 " id="btnAddAnother"> <i class="bi bi-list"></i> Інше </button> </div>
                   <div class="col gx-7 back">
                      <!-- back-2-add-avaible-goods --> <button type="button" class="btn btn-outline-red-400" onclick="            setTimeout(function(){ document.querySelector('#idAvaibleGood').focus(); }, 1000);            " data-bs-toggle="modal" data-bs-target="#modal_add_avaible" data-bs-dismiss="modal"> <i class="bi bi-box-arrow-left"></i> </button> 
                   </div>
@@ -281,7 +282,7 @@ if(!$_SESSION['user']){
                      </div>
                   </form>
                   <form id="uploadNewGlassForm">
-                  <div class="row  add_glasses">
+                  <div class="row add_glasses">
                      <div class="col ">
                         <div class="form"> <input type="text" id="idNewGlass" name="idNewGlass" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="idNewGlass" class="form__label">Код товару</label> </div>
                         <div class="form"> <input type="text" id="typeGlass" name="typeGlass" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="typeGlass" class="form__label">Тип Скла</label> </div>
@@ -308,6 +309,33 @@ if(!$_SESSION['user']){
                         </div>
                     </div>
                      </div>
+                 </form>        
+                   <form id="uploadNewAnotherForm">
+                  <div class="row add_another">
+                     <div class="col ">
+                        <div class="form"> <input type="text" id="idNewAnother" name="idNewAnother" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="idNewAnother" class="form__label">Код товару</label> </div>
+                        <div class="form"> <input type="text" id="typeGoodAnother" name="typeGoodAnother" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="typeGoodAnother" class="form__label">Тип товару</label> </div>
+                          <div class="form"> <input type="text" id="firstPriceAnother" onKeyPress="onlyNumber()" name="firstPriceAnother" class="form__input form-control " required autocomplete="off" placeholder=" "> <label for="firstPriceAnother" class="form__label">Ціна товару(шт)</label> </div>
+                     </div>
+                     <div class="col">
+                        <div class="form-desc"> <textarea type="text" id="describeAnotherGood" name="describeAnotherGood" class="form__input form-control" required autocomplete="off" placeholder=" "></textarea> <label for="describeAnotherGood" class="form__label">Опис товару</label> </div>
+                        <div class="form"> <input type="text" id="colorAnother" name="colorAnother" class="form__input form-control" required autocomplete="off" placeholder=" "> <label for="colorAnother" class="form__label px-3">Колір</label> </div>
+                     </div>
+                
+
+                        <div class="row m-0">
+                           <div class="drag-and-drop-add-case ">
+                              <div class="drag-and-drop-content py-3" tabindex="0"> <label for="image"><i class="bi bi-file-earmark-plus d-flex justify-content-center  "></i></label> <input type="file" id="new-image-another" class='inputImages' name="image"  accept="image/png, image/jpeg" style="display:none"> </div>
+                              <div class="drag-and-drop-img ">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="modal-footer">
+                           <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" id="quantityNewAnother"min="1" max="999" name="quantity" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div>
+                           <div class="form w-75"> <input onKeyPress="onlyNumber()" type="text" id="lastPriceAnother" name="lastPriceAnother" class="form__input form-control "style="margin-top: 2px;" required autocomplete="off" placeholder=" "> <label for="lastPriceAnother" class="form__label">Ціна продажу(шт)</label> </div>
+                           <button type="submit" id="uploadNewAnotherBtn"class="btn btn-success" disabled ><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderNewAnotherBtn" style="display: none;"></span>Додати до складу</button>
+                        </div>
+                    </div>
                  </form>
                   </div>
                </div>
@@ -318,15 +346,16 @@ if(!$_SESSION['user']){
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
       <script src="assets/js/main.js" charset="utf-8"></script>
       <script src="assets/js/search-table.js" charset="utf-8"></script>
       <script src="assets/js/drag-and-drop.js" charset="utf-8"></script>
       <script src="assets/js/upload-charges.js" charset="utf-8"></script>
+      <script src="assets/js/upload-cases.js" charset="utf-8"></script>
       <script src="assets/js/upload-glasses.js" charset="utf-8"></script>
       <script src="assets/js/validate-input.js" charset="utf-8"></script>
       <script src="assets/js/upload-new-goods.js" charset="utf-8"></script>
+      <script src="assets/js/upload-another.js" charset="utf-8"></script>
       <script src="assets/js/toasts.js" charset="utf-8"></script>
  <?php 
  // if
