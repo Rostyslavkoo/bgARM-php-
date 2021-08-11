@@ -60,7 +60,7 @@ if(!$_SESSION['user']){
                <div class="col-lg-3 d-flex search"> <input type="text" class="form-control" id="search"  placeholder="Пошук" autofocus onkeyup="tableSearch()"> <button type="button" class=" mx-1 btn btn-secondary report-btn" data-bs-toggle="modal" data-bs-target="#setPeriodTimeToReport"> Звіт </button> </div>
             </div>
          </div>
-         <div class="container ">
+         <div class="container text-center">
             <div class="table-scrollable ">
                <table class="table table-hover text-center" id="info-table">
                   <thead>
