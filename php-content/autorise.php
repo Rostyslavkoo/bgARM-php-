@@ -4,7 +4,7 @@ require('../connect.php');
 
 
 $autoriseCod = md5($_POST["autoriseCod"]);
-
+$autoriseCod = htmlspecialchars($autoriseCod,ENT_QUOTES);
 $checkUpload = "SELECT * FROM `users` WHERE `password` = '$autoriseCod'";
 
 $result = mysqli_query($mysql, $checkUpload);
