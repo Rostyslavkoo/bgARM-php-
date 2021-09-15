@@ -8,6 +8,14 @@ $quantityNewAvaibleGood = $params['quantityNewAvaibleGood'];
 $quantityNewAvaibleGood = htmlspecialchars($quantityNewAvaibleGood,ENT_QUOTES);
 
    require"../connect.php";
+   
+$checkAvaible = $mysql->query("SELECT `cod` FROM `all_avaible_goods` WHERE `cod` = '$idNewGood'");
+$count = mysqli_num_rows($checkAvaible);
+
+if($count == 0 ) {
+  echo json_encode(["avaible" => false]);
+  die(); 
+}
 
   $mysql->query("UPDATE `all_avaible_goods` SET `quantity` = `quantity` + '$quantityNewAvaibleGood' WHERE `cod` = '$idNewGood' "); 
 

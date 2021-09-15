@@ -8,14 +8,7 @@ let lastPriceAnother = document.getElementById('lastPriceAnother')
 let loaderNewAnotherBtn = document.getElementById('loaderNewAnotherBtn')
 let uploadNewAnotherBtn = document.getElementById('uploadNewAnotherBtn')
 
-lastPriceAnother.onkeyup = function() {
-    if (!lastPriceAnother.value == ``) {
-        uploadNewAnotherBtn.removeAttribute('disabled')
-    } else {
-        uploadNewAnotherBtn.setAttribute("disabled", true);
 
-    }
-}
 
 uploadNewAnotherBtn.addEventListener('click', (e) => {
             e.preventDefault();

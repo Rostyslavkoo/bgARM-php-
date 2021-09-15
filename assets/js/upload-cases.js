@@ -1,13 +1,3 @@
-// ulock upload btn
-lastPriceCase.onkeyup = function() {
-    if (!lastPriceCase.value == ``) {
-        uploadNewGoodBtn.removeAttribute('disabled')
-    } else {
-        uploadNewGoodBtn.setAttribute("disabled", true);
-
-    }
-
-}
 //  upload cases
 
 uploadBtnCase.addEventListener("click", function(e) {
@@ -100,12 +90,12 @@ const uploadImg = () => {
                 let date = Date().slice(16, 21);
                 createToast('Bigupcase', date, 'Даний товар уже існує на складі')
                 $('#loaderNewcaseBTn').css("display", "none")
-                uploadNewGoodBtn.removeAttribute('disabled')
+                uploadBtnCase.removeAttribute('disabled')
             } else if(response.status == false){
                 let date = Date().slice(16, 21);
                 createToast('Bigupcase', date, 'Упс... щось пішло не так')
                 $('#loaderNewcaseBTn').css("display", "none")
-                uploadNewGoodBtn.removeAttribute('disabled')
+                uploadBtnCase.removeAttribute('disabled')
             }else {
                 let len = response.length;
                 for (let i = 0; i < len; i++) {

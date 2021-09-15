@@ -12,11 +12,11 @@ let quantitySoldGood = document.getElementById('quantitySoldGood')
 let soldGoodform = document.getElementById('quantitySoldGood')
 // let quantityNewAvaibleGood = document.getElementById('quantityNewAvaibleGood')
 function tool_tip() {
-     $('[data-bs-toggle="tooltip"]').tooltip()
+    $('[data-bs-toggle="tooltip"]').tooltip()
 }
- addSoldBtn.addEventListener("click", function(e) {
-        e.preventDefault();
-    })
+addSoldBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+})
 inputSoldCod.onkeyup = function() {
     // addAvaibleSpin.style.display = '';
     addAvaibleTxtToSold.style.display = 'none';
@@ -57,12 +57,11 @@ inputSoldCod.onkeyup = function() {
 
                     tmpCheckDataTableToSold.style.setProperty("display", "none", "important")
                     dataCheckAvaibleInfoToSold.style.display = 'flex'
-
-                } else if(response.avaibleQuantity == false){
-                console.log('lox')
-            }else {
+ addSoldBtn.setAttribute("disabled", true);
+                } else if (response.avaibleQuantity == false) {
+                    
+                } else {
                     $("#tmpCheckDataTableToSold td").remove();
-
                     tmpCheckDataTableToSold.style.display = 'flex'
                     dataCheckAvaibleInfoToSold.style.display = 'none'
 
@@ -98,7 +97,7 @@ inputSoldCod.onkeyup = function() {
                     addSoldBtn.removeAttribute('disabled')
 
                 }
-                 tool_tip(); 
+                tool_tip();
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);
@@ -109,6 +108,11 @@ inputSoldCod.onkeyup = function() {
 }
 
 const uploadSoldGood = () => {
+    if (inputSoldCod.value == "") {
+        let date = Date().slice(16, 21);
+        createToast('Bigupcase', date, 'Введіть код товару')
+        return false;
+    }
     if (quantitySoldGood.value == "" || quantitySoldGood.value == 0) {
         let date = Date().slice(16, 21);
         createToast('Bigupcase', date, 'Вкажіть кількість товару')
@@ -165,13 +169,23 @@ const uploadSoldGood = () => {
                 dataCheckAvaibleInfoToSold.style.display = 'none'
                 $("#soldGoodform").trigger("reset");
                 $("#tmpCheckDataTableToSold td").remove();
-                                    tmpCheckDataTableToSold.style.setProperty("display", "none", "important")
+                tmpCheckDataTableToSold.style.setProperty("display", "none", "important")
                 dataCheckAvaibleInfoToSold.style.display = 'flex'
                 addAvaibleSpinToSold.style.display = 'none';
                 dataCheckAvaibleInfoToSold.style.display = 'flex'
                 addAvaibleTxtToSold.style.display = ''
 
 
+
+            } else if (response.avaible == false) {
+                let date = Date().slice(16, 21);
+                console.log(response)
+                createToast('Bigupcase', date, 'Такого товару не існує')
+                addAvaibleEmptyTxtToSold.style.display = ''
+                addAvaibleSpinToSold.style.display = 'none';
+                loaderAddSoldBtn.style.setProperty("display", "none", "important")
+                tmpCheckDataTableToSold.style.setProperty("display", "none", "important")
+                dataCheckAvaibleInfoToSold.style.display = 'flex'
 
             } else {
 
@@ -215,14 +229,14 @@ const uploadSoldGood = () => {
                         '</div>');
 
                     $("#avaibleGoodsTable ").append(tr_str);
-                            $("#soldGoodform").trigger("reset");
-                $("#tmpCheckDataTableToSold td").remove();
-                                    tmpCheckDataTableToSold.style.setProperty("display", "none", "important")
+                    $("#soldGoodform").trigger("reset");
+                    $("#tmpCheckDataTableToSold td").remove();
+                    tmpCheckDataTableToSold.style.setProperty("display", "none", "important")
 
-                dataCheckAvaibleInfoToSold.style.display = 'flex'
-                addAvaibleSpinToSold.style.display = 'none';
-                dataCheckAvaibleInfoToSold.style.display = 'flex'
-                addAvaibleTxtToSold.style.display = ''
+                    dataCheckAvaibleInfoToSold.style.display = 'flex'
+                    addAvaibleSpinToSold.style.display = 'none';
+                    dataCheckAvaibleInfoToSold.style.display = 'flex'
+                    addAvaibleTxtToSold.style.display = ''
                 }
 
                 let date = Date().slice(16, 21);

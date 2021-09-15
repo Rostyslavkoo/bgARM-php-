@@ -9,7 +9,7 @@ let loaderAddAvaibleBtn = document.getElementById('loaderAddAvaibleBtn')
 let quantityNewAvaibleGood = document.getElementById('quantityNewAvaibleGood')
 
 function tool_tip() {
-     $('[data-bs-toggle="tooltip"]').tooltip()
+    $('[data-bs-toggle="tooltip"]').tooltip()
 }
 
 inputAvaibleCod.onkeyup = function(e) {
@@ -48,7 +48,7 @@ inputAvaibleCod.onkeyup = function(e) {
                     console.log(response)
                     addAvaibleEmptyTxt.style.display = ''
                     addAvaibleSpin.style.display = 'none';
-
+                    addAvaibleBtn.setAttribute("disabled", true);
                     tmpCheckDataTable.style.setProperty("display", "none", "important")
                     dataCheckAvaibleInfo.style.display = 'flex'
                 } else {
@@ -91,7 +91,7 @@ inputAvaibleCod.onkeyup = function(e) {
                     addAvaibleBtn.removeAttribute('disabled')
 
                 }
- tool_tip(); 
+                tool_tip();
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);
@@ -127,50 +127,63 @@ const uploadAvaibleGood = () => {
 
         },
         success: function(response) {
-            $("#tmpCheckDataTable td").remove();
-            addAvaibleBtn.removeAttribute('disabled')
-            loaderAddAvaibleBtn.style.setProperty("display", "none", "important")
+            if (response.avaible == false) {
+                console.log(response)
+                addAvaibleEmptyTxt.style.display = ''
+                addAvaibleSpin.style.display = 'none';
+                addAvaibleBtn.setAttribute("disabled", true);
+                tmpCheckDataTable.style.setProperty("display", "none", "important")
+                dataCheckAvaibleInfo.style.display = 'flex'
+                loaderAddAvaibleBtn.style.setProperty("display", "none", "important")
+                let date = Date().slice(16, 21);
 
-            tmpCheckDataTable.style.display = 'flex'
-            dataCheckAvaibleInfo.style.display = 'none'
-            let len = response.length;
-            for (let i = 0; i < len; i++) {
-                let idGood = response[i].idGood;
-                let type_good = response[i].type_good;
-                let good_content = response[i].good_content;
-                let cod = response[i].cod;
-                let color = response[i].color;
-                let quantity = response[i].quantity;
-                let first_price = response[i].first_price;
-                let last_price = response[i].last_price;
-                let id_photo = response[i].id_photo;
-                var tr_str =
+                createToast('Bigupcase', date, 'Такого товару не існує')
+            } else {
+                $("#tmpCheckDataTable td").remove();
+                addAvaibleBtn.removeAttribute('disabled')
+                loaderAddAvaibleBtn.style.setProperty("display", "none", "important")
 
-                    '<td scope="row"><span z-index="9999" data-bs-toggle="tooltip" data-bs-placement="top" title="Код товару">' + cod + '</span></td>' +
-                    '<td scope="row" class="text-center"style="min-width:30%;"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Тип та назва товару">'+ good_content + '</span> </td>' +
-                    '<td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Колір">' + color + '</span> </td>' +
-                    '<td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Кількість">' + quantity + 'шт</span> </td>' +
-                    '<td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Початкова ціна">' + first_price + '</span> </td>' +
-                    '<td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Ціна продажу">' + last_price + '</span> </td>' +
-                    '<td class="c-img-table">' +
+                tmpCheckDataTable.style.display = 'flex'
+                dataCheckAvaibleInfo.style.display = 'none'
+                let len = response.length;
+                for (let i = 0; i < len; i++) {
+                    let idGood = response[i].idGood;
+                    let type_good = response[i].type_good;
+                    let good_content = response[i].good_content;
+                    let cod = response[i].cod;
+                    let color = response[i].color;
+                    let quantity = response[i].quantity;
+                    let first_price = response[i].first_price;
+                    let last_price = response[i].last_price;
+                    let id_photo = response[i].id_photo;
+                    var tr_str =
 
-                    '<img src="uploads/' + id_photo + '" alt="image">' +
-                    '</td>';
+                        '<td scope="row"><span z-index="9999" data-bs-toggle="tooltip" data-bs-placement="top" title="Код товару">' + cod + '</span></td>' +
+                        '<td scope="row" class="text-center"style="min-width:30%;"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Тип та назва товару">' + good_content + '</span> </td>' +
+                        '<td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Колір">' + color + '</span> </td>' +
+                        '<td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Кількість">' + quantity + 'шт</span> </td>' +
+                        '<td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Початкова ціна">' + first_price + '</span> </td>' +
+                        '<td scope="row"> <span data-bs-toggle="tooltip" data-bs-placement="top" title="Ціна продажу">' + last_price + '</span> </td>' +
+                        '<td class="c-img-table">' +
+
+                        '<img src="uploads/' + id_photo + '" alt="image">' +
+                        '</td>';
 
 
-                $("#tmpCheckDataTable ").append(tr_str);
+                    $("#tmpCheckDataTable ").append(tr_str);
+                }
 
+
+                let date = Date().slice(16, 21);
+
+                createToast('Bigupcase', date, 'Кількість товару змінена, оновіть сторінку')
             }
-
-         let date = Date().slice(16, 21);
-
-            createToast('Bigupcase', date, 'Кількість товару змінена, оновіть сторінку')
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
         }
     })
 }
-$(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    })
+$(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+})

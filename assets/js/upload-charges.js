@@ -10,13 +10,7 @@ let imageCase = document.getElementById('image')
 let quantityNewCharge = document.getElementById('quantityNewCharge')
 let lastPriceCharge = document.getElementById('lastPriceCharge')
 let loaderNewChargeBtn = document.getElementById('loaderNewChargeBtn')
-lastPriceCharge.onkeyup = function() {
-    if (!lastPriceCharge.value == ``) {
-        uploadBtn.removeAttribute('disabled')
-    } else {
-        uploadBtn.setAttribute("disabled", true);
-    }
-}
+
 uploadBtn.addEventListener('click', (e) => {
     e.preventDefault();
     if (idNewChargeValue.value == "") {
@@ -137,7 +131,7 @@ uploadBtn.addEventListener('click', (e) => {
 
                 }
                 loaderNewChargeBtn.style.display = 'none';
-                uploadBtn.removeAttribute('disabled')
+                uploadBtn.setAttribute('disabled',true)
                 $("#uploadNewCaseForm").trigger("reset");
                 imagesForUpload = []
                 tmpUrlImg = [];

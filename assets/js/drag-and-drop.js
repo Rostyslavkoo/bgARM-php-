@@ -3,7 +3,7 @@
  let dragAndDropIco = document.querySelector('.bi-file-earmark-plus')
  const imagesList = document.querySelectorAll('.drag-and-drop-img')
  let imagesListCharge = document.querySelector('#drag-and-drop-img-charge')
- let uploadNewGoodBtn = document.querySelector('#uploadNewCaseBtn')
+ let uploadNewGoodBtn = document.querySelectorAll('.upload-newgood-btn-manual')
  let uploadBtnCase = document.getElementById('uploadNewCaseBtn');
 
  let idNewCaseValue = document.getElementById('idNewCase')
@@ -56,11 +56,15 @@
 
          tmpUrlImg = [imgTempUrl] // upload img in massive
      }
+      // unlock upload
+   if (imagesForUpload.length > 0) {
+        uploadNewGoodBtn.forEach(item =>{
+              item.removeAttribute('disabled')
+        })
+        console.log(1)
+     }
  }
- // unlock upload
- if (imagesForUpload.length > 0) {
-     uploadNewGoodBtn.removeAttribute('disabled')
- }
+
  dragAndDrop.forEach((cell) => {
      cell.addEventListener('dragover', dragOver);
      cell.addEventListener('dragenter', dragEnter);
@@ -96,7 +100,12 @@
      }
 
      console.log(fileList)
+
+
      if (imagesForUpload.length > 0) {
-         uploadNewGoodBtn.removeAttribute('disabled')
+        uploadNewGoodBtn.forEach(item =>{
+              item.removeAttribute('disabled')
+        })
+        
      }
  }

@@ -8,14 +8,6 @@ let lastPriceGlass = document.getElementById('lastPriceGlass')
 let loaderNewGlassBtn = document.getElementById('loaderNewGlassBtn')
 let uploadNewGlassBtn = document.getElementById('uploadNewGlassBtn')
 
-lastPriceGlass.onkeyup = function() {
-    if (!lastPriceGlass.value == ``) {
-        uploadNewGlassBtn.removeAttribute('disabled')
-    } else {
-        uploadNewGlassBtn.setAttribute("disabled", true);
-
-    }
-}
 
 uploadNewGlassBtn.addEventListener('click', (e) => {
             e.preventDefault();

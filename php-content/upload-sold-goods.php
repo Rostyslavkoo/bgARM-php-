@@ -21,11 +21,15 @@ $lastPriceSoldGood = htmlspecialchars($lastPriceSoldGood,ENT_QUOTES);
  $result = mysqli_query($mysql, $avaibleGoodCodOutput);
 
  if (mysqli_num_rows($result) > 0) {
-  // output data of each row
+
   while($row = mysqli_fetch_assoc($result)) {
   	$avaibleGoodCod = $row["quantity"];
 	}
-}
+ 
+}  else{
+      echo json_encode(["avaible" => false]);
+      exit();
+   }
 
  $diff = $avaibleGoodCod - $quantitySoldGood;
 if($diff <0){

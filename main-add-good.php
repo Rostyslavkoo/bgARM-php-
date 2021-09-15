@@ -122,7 +122,7 @@ if(!$_SESSION['user']){
                            '<th scope="row">'.$row["cod"].'</th>'.
                            '<td class="main-cell">'.$row["type_good"]. ' '.$row["good_content"].'</td>'.
                            '<td>'.$row["color"].'</td>'.
-                           '<td>'.$row["quantity"].'</td>'.
+                           '<td>'.$row["quantity"].'шт</td>'.
                            '<td>'.$row["first_price"].'</td>'.
                            '<td>'.$row["last_price"].'</td>'.
                            '<td class=" b-img-table"><i class="bi bi-image" data-bs-toggle="modal" data-bs-target="#staticBackdrop'.$row["id"].'"></i></td>'.
@@ -194,7 +194,7 @@ if(!$_SESSION['user']){
                   </div>
                   <div class="modal-footer ">
                      <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" id="quantityNewAvaibleGood"min="1" max="999" name="quantityAvaibleGood" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button"onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div>
-                     <button id="addAvaibleBtn"type="submit" class="btn btn-success upload-newgood-btn" onclick="uploadAvaibleGood()"disabled >  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderAddAvaibleBtn" style="display: none;"></span>
+                     <button id="addAvaibleBtn"type="button" class="btn btn-success upload-newgood-btn" onclick="uploadAvaibleGood()"disabled >  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderAddAvaibleBtn" style="display: none;"></span>
                      Додати до складу</button>
                   </div>
                </form>
@@ -244,7 +244,7 @@ if(!$_SESSION['user']){
                         <div class="modal-footer">
                            <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input id="quantityNewCase"class="quantity" min="1" max="999" name="quantityNewCase" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button"onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"><i class="bi bi-plus"></i> </button> </div>
                            <div class="form w-75"> <input type="text" onKeyPress="onlyNumber()" id="lastPriceCase" name="lastPriceCase" class="form__input form-control "style="margin-top: 2px;" required autocomplete="off" placeholder=" "> <label for="lastPriceCase" class="form__label">Ціна продажу(шт)</label> </div>
-                           <button id="uploadNewCaseBtn"type="submit" class="btn btn-success upload-newgood-btn"  onclick="uploadImg()"disabled >  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderNewcaseBTn" style="display: none;"></span>
+                           <button id="uploadNewCaseBtn"type="submit" class="btn btn-success upload-newgood-btn-manual"  onclick="uploadImg()" disabled >  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderNewcaseBTn" style="display: none;"></span>
                            Додати до складу</button>
                         </div>
                      </div>
@@ -277,7 +277,7 @@ if(!$_SESSION['user']){
                         <div class="modal-footer">
                            <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input id="quantityNewCharge"class="quantity" min="1" max="999" name="quantity" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div>
                            <div class="form w-75"> <input type="text" id="lastPriceCharge" name="lastPriceCharge" class="form__input form-control "style="margin-top: 2px;" onKeyPress="onlyNumber()" required autocomplete="off" placeholder=" "> <label for="lastPriceCharge" class="form__label">Ціна продажу(шт)</label> </div>
-                           <button type="submit" class="btn btn-success" disabled id="uploadNewChargesBtn"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderNewChargeBtn" style="display: none;"></span>Додати до складу</button>
+                           <button type="submit" class="btn btn-success upload-newgood-btn-manual" disabled id="uploadNewChargesBtn"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderNewChargeBtn" style="display: none;"></span>Додати до складу</button>
                         </div>
                      </div>
                   </form>
@@ -305,7 +305,7 @@ if(!$_SESSION['user']){
                         <div class="modal-footer">
                            <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" id="quantityNewGlass"min="1" max="999" name="quantity" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div>
                            <div class="form w-75"> <input onKeyPress="onlyNumber()" type="text" id="lastPriceGlass" name="lastPriceGlass" class="form__input form-control "style="margin-top: 2px;" required autocomplete="off" placeholder=" "> <label for="lastPriceGlass" class="form__label">Ціна продажу(шт)</label> </div>
-                           <button type="submit" id="uploadNewGlassBtn"class="btn btn-success" disabled ><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderNewGlassBtn" style="display: none;"></span>Додати до складу</button>
+                           <button type="submit" id="uploadNewGlassBtn"class="btn btn-success upload-newgood-btn-manual" disabled ><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderNewGlassBtn" style="display: none;"></span>Додати до складу</button>
                         </div>
                     </div>
                      </div>
@@ -333,7 +333,7 @@ if(!$_SESSION['user']){
                         <div class="modal-footer">
                            <div class="number-input"> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="bi bi-dash"></i></button> <input class="quantity" id="quantityNewAnother"min="1" max="999" name="quantity" value="1" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required> <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="text"><i class="bi bi-plus"></i> </button> </div>
                            <div class="form w-75"> <input onKeyPress="onlyNumber()" type="text" id="lastPriceAnother" name="lastPriceAnother" class="form__input form-control "style="margin-top: 2px;" required autocomplete="off" placeholder=" "> <label for="lastPriceAnother" class="form__label">Ціна продажу(шт)</label> </div>
-                           <button type="submit" id="uploadNewAnotherBtn"class="btn btn-success" disabled ><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderNewAnotherBtn" style="display: none;"></span>Додати до складу</button>
+                           <button type="submit" id="uploadNewAnotherBtn"class="btn btn-success upload-newgood-btn-manual" disabled ><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="loaderNewAnotherBtn" style="display: none;"></span>Додати до складу</button>
                         </div>
                     </div>
                  </form>
